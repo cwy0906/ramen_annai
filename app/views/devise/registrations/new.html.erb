@@ -4,6 +4,14 @@
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
+    <%= f.label :username, "使用者名稱", class:"label" %>
+    <div class="control">
+      <%= f.text_field :username, class:"input" %>
+    </div>
+    <p class="help" >範例:@larry</p>
+  </div>
+
+  <div class="field">
     <%= f.label :email, "帳號(E-mail)", class:"label" %>
     <div class="control">
       <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"input" %>

@@ -4,6 +4,26 @@
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
+    <%= f.label :username, "使用者名稱", class:"label" %>
+    <div class="control">
+      <%= f.text_field :username, class:"input" %>
+    </div>
+    <p class="help" >範例:@larry</p>
+  </div>
+
+  <br>
+  <div class="field">
+    <%= f.label :avatar, "大頭照", class:"label" %>
+    <div class="control">
+      <%= f.file_field :avatar %>
+    </div>
+
+    <%= avatar(current_user) %>
+ 
+  </div>
+  <br>
+
+  <div class="field">
     <%= f.label :email, "帳號(E-mail)", class:"label" %>
     <div class="control">
       <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"input" %>
@@ -15,11 +35,11 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :password, "密碼", class:"label" %> <i>(若不變更，請保持空白)</i>
+    <%= f.label :password, "密碼", class:"label" %>
     <div class="control">
     <%= f.password_field :password, autocomplete: "new-password", class:"input" %>
       <% if @minimum_password_length %>
-        <em>至少六個字元</em>
+        <p class="help" >(若不變更，請保持空白；密碼長度至少六個字元)</p>
       <% end %>
     </div>  
   </div>
@@ -32,10 +52,11 @@
   </div>
 
   <div class="field">
-    <%= f.label :current_password, "密碼確認", class:"label" %> <i>(輸入密碼以便確認資料更改)</i>
+    <%= f.label :current_password, "密碼確認", class:"label" %> 
     <div class="control">  
       <%= f.password_field :current_password, autocomplete: "current-password", class:"input" %>
     </div>
+    <p class="help" >(輸入密碼以便確認資料更改)</p>
   </div>
 
   <div class="actions">

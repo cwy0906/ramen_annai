@@ -1,2 +1,10 @@
 
-<h1 class="title" >Hello rails</h1>
+<% if user_signed_in? %>
+    <h1 class="title" >
+        Hello, <%= current_user.username %>
+    </h1>
+<% else %>
+    <h1 class="title" >
+        Hello, 訪客
+    </h1>
+<% end %>
