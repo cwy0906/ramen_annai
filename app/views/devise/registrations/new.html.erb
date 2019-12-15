@@ -1,28 +1,31 @@
-<h2>Sign up</h2>
+<h2 class="title" >註冊</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.label :email, "帳號(E-mail)", class:"label" %>
+    <div class="control">
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"input" %>
+    </div>
   </div>
 
   <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+    <%= f.label :password, "密碼(至少六個字元)", class:"label" %>
+    <div class="control">
+      <%= f.password_field :password, autocomplete: "new-password", class:"input" %>
+    </div>
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <%= f.label :password_confirmation, "再次輸入密碼", class:"label" %>
+    <div class="control">
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"input" %>
+    </div>    
   </div>
 
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "註冊", class:"button is-warning" %>
   </div>
 <% end %>
 
