@@ -1,5 +1,12 @@
 class PagesController < ApplicationController
 
     def index
-    end    
+    end
+    
+    def select_user_type           
+    end
+
+
+
+        
 end
