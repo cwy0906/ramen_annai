@@ -5,11 +5,22 @@
  *= require_self
  */
 
-
-
  .navbar-link {
     .user-avatar {
         border-radius: 50%;
         margin-right : 10px;    
     }   
  }
+
+ .ribbon-bar{
+    background-color: #FFDD57;
+    height:0.5em;
+    overflow: hidden;
+}
+
+.ribbon-table-line{
+    background-color: #FFEE99;
+    height:0.2em;
+    overflow: hidden;
+}
+
