@@ -14,20 +14,41 @@
 
     <div class="navbar-end">        
         <% if user_signed_in? %>
-        <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link">
-            <%= avatar(current_user, size:50)%>
-            <%= current_user.email %>
-            </a>
-            <div class="navbar-dropdown">
-            <%= link_to "編輯個人資料", edit_user_registration_path, class: 'navbar-item', method: 'GET' %>            
-            <hr class="navbar-divider">
-            <%= link_to "登出", destroy_user_session_path, class: 'navbar-item', method: 'DELETE',
-                data: {confirm: '確定是否登出?'} %>    
+          <% if current_user.user_type == 'customer' %>
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                  <%= avatar(current_user, size:50)%>
+                  <%= current_user.email %>
+                </a>
+                <div class="navbar-dropdown">
+                  <%= link_to "編輯帳號資料", edit_user_registration_path, class: 'navbar-item', method: 'GET' %>            
+                  <hr class="navbar-divider">
+                  <%= link_to "登出", destroy_user_session_path, class: 'navbar-item', method: 'DELETE',
+                      data: {confirm: '確定是否登出?'} %>    
+                </div>
             </div>
-        </div> 
-
-
+          <% elsif current_user.user_type == 'manager' %>
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                  <%= avatar(current_user, size:50)%>
+                  <%= current_user.email %>
+                </a>
+                <div class="navbar-dropdown">
+                  <%= link_to "編輯帳號資料", edit_user_registration_path, class: 'navbar-item', method: 'GET' %>            
+                  
+                  <% if user_session["has_store?"] == false %>
+                    <%= link_to "新增店家資料", new_user_store_path(user_id:current_user.id), class: 'navbar-item', method: 'GET' %>
+                  <% else %>
+                    <%= link_to "顯示店家資料", user_stores_path(user_id:current_user.id),     class: 'navbar-item', method: 'GET' %>
+                    <%= link_to "編輯店家資料", edit_user_store_path(user_id:current_user.id), class: 'navbar-item', method: 'GET' %>
+                  <% end %>
+                  
+                  <hr class="navbar-divider">
+                  <%= link_to "登出", destroy_user_session_path, class: 'navbar-item', method: 'DELETE',
+                      data: {confirm: '確定是否登出?'} %>    
+                </div>
+            </div>            
+          <% end %>
         <% else %>
         <div class="navbar-item">
         <div class="buttons">

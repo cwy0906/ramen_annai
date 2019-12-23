@@ -1,10 +1,20 @@
 
-<% if user_signed_in? %>
-    <h1 class="title" >
-        Hello, <%= current_user.username %>
-    </h1>
-<% else %>
-    <h1 class="title" >
-        Hello, 訪客
-    </h1>
-<% end %>
+<%= render 'shared/frontend/message'%>
+
+<h1>主頁面標示</h1>
+<br/>
+
+<p>
+current_user資訊
+<br/>
+<%= current_user.attributes if current_user.present?%>
+</p>
+
+<br/>
+
+<p>
+user_session資訊:
+<br/>
+<%= user_session if user_session.present?%>
+</p>
+

@@ -1,0 +1,19 @@
+<% if user_signed_in? %>
+    <% if current_user.user_type == 'customer'%>
+        <p>
+        Hello,一般用戶 <%= current_user.username %>
+        </p>
+    <% elsif current_user.user_type == 'manager'%>
+        <p>
+        Hello,商家用戶 <%= current_user.username %>
+        </p>
+    <% else %>
+        <p>
+        未確認身分，請洽管理人員
+        </p>
+    <% end %>
+<% else %>
+    <p>
+    Hello, 訪客
+    </p>
+<% end %>
