@@ -1,0 +1,32 @@
+<div id="ajax_output">
+    <div class="title">顯示 Google Map</div>
+
+    <p>
+        <div id="map" class="Google_map"></div>
+    </p>
+
+    <div id="mapLat" style="display:none" ><%= @latitude  %></div>
+    <div id="mapLng" style="display:none" ><%= @longitude %></div>
+</div>
+
+<% provide :head_tags do %>
+    <meta name='turbolinks-visit-control' content='reload'>
+    <script>
+    function initMap(lat, lng) {   
+      var myCoords = new google.maps.LatLng(lat, lng);
+      var mapOptions = {
+      center: myCoords,
+      zoom: 14
+      }; 
+      var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+      var marker = new google.maps.Marker({
+      position: myCoords,
+      map: map
+      });
+    }
+      
+    document.addEventListener("DOMContentLoaded", function(){        
+        initMap(<%=@latitude%>, <%=@longitude%>)
+    });
+    </script>
+<% end %>

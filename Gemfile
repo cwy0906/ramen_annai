@@ -14,7 +14,7 @@ gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 4.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
+gem 'turbolinks', '~> 5.2', '>= 5.2.1' 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
@@ -32,6 +32,10 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 # devise
 gem 'devise', '~> 4.7', '>= 4.7.1'
+
+# GoogleMap&Map Api
+gem 'gmaps4rails', '~> 2.1', '>= 2.1.2'
+gem 'geocoder', '~> 1.5', '>= 1.5.2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
