@@ -11,5 +11,6 @@ Rails.application.routes.draw do
 
   root 'pages#index'
   get "/user_type/sign_up", to: "pages#select_user_type"
+  get "/stimulus_demo",     to: "pages#stimulus_demo"
   
 end
