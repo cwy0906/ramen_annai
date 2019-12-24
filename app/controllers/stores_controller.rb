@@ -36,6 +36,9 @@ class StoresController < ApplicationController
     end    
 
     def index
+        @store  = current_user.store
+
+
     end    
 
     private

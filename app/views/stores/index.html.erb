@@ -1,1 +1,73 @@
 <h2 class="title" >店家資料主頁</h2>
+
+<div class="card">
+  <div class="card-image">
+      <%= image_tag("ramen_bar.png") %>  
+  </div>
+
+  <div class="ribbon-table-line"></div>  
+
+  <div class="card-content">
+
+    <div class="media">
+      <div class="media-left">
+        <figure class="image">
+          <%= avatar(current_user,size:90) %>
+        </figure>
+      </div>
+      <div class="media-content">
+        <p class="title is-4">
+        <%= @store.title %>
+        </p>
+        <p class="subtitle is-6">
+        <%= @store.address %>
+        </p>
+      </div>
+    </div>
+
+    <div class="content">
+    <%= @store.promote %>
+    </br>
+    特色:  <%= @store.feature %>
+    </div>
+  </div>
+</div>
+
+<div class="ribbon-table-line"></div>
+
+<div class="card">
+  <header class="card-header">
+    <p class="card-header-title">
+    簡介:
+    </br>
+    <%= @store.intro %>
+    </p>
+  </header>
+  <div class="card-content">
+    <div class="content">
+    <p class="title is-6">
+    其他資料:
+    </p>
+    </br>
+    營業時間:<%= @store.opening_hours %>
+    </br>
+    公休日:<%= @store.closed_day %>
+    </br>
+    預算:<%= @store.budget %> 
+    </br>
+    備註:<%= @store.memo %> 
+    </br> 
+    </div>
+  </div>
+  <footer class="card-footer">
+    <a href="#" class="card-footer-item">評價</a>
+    <a href="#" class="card-footer-item">菜單</a>
+    <a href="#" class="card-footer-item">相簿</a>
+    <a href="#" class="card-footer-item">地圖</a>
+  </footer>
+</div>
+
+<div class="ribbon-bar"></div>
+
+
+
