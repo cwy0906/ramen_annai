@@ -13,6 +13,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create 
     super
+    user_session[:has_store?] = Store.find_by( user_id: current_user.id ).present?
   end
 
   # GET /resource/edit
