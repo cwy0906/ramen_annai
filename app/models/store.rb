@@ -8,6 +8,6 @@ class Store < ApplicationRecord
   validates  :closed_day, presence: true
   validates  :budget, presence: true
   validates  :feature, presence: true
-
+  has_many :comments
 end
 

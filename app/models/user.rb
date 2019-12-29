@@ -8,5 +8,5 @@ class User < ApplicationRecord
   
   has_one_attached :avatar
   has_one :store
-
+  has_many :comments
 end

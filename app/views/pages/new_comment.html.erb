@@ -1,5 +1,67 @@
-<h1>填寫新評論頁面</h1>
+<h2 class="title" >填寫新評論</h2>
+<p class="help" >*為必填欄位</p>
 
-編寫者id:<%= @user_id %>
+<% if !user_session["form_error_message"].nil? %>
+    <article class="message is-warning">
+    <div class="message-body">
+        <%= user_session["form_error_message"] %>
+    </div>
+    </article>
+<% end %>
+
 </br>
-店家id:<%= @store_id %>
+撰寫一則關於&nbsp;<%= @store.title %>&nbsp;的評論
+</br>
+
+<%= form_for(@comment, url: comment_create_path(store_id:@store.id), method: :get ) do |form| %>
+    </br>
+    <span class="tag is-large is-warning">
+    <h6 class="title is-6">評論內容</h6>
+    </span>
+    <div class="ribbon-table-line">
+    </div>
+    </br>
+
+    <div class="field">
+        <%= form.label :score, "評價分數*", class: "label" %>
+        <div class="control">
+            <div class="select">
+                <%= form.select :score, options_for_select(["1","2","3","4","5"])  %>
+            </div>
+        </div>
+    </div>
+
+    <div class="field">
+        <%= form.label :visit_time, "消費日期*", class: "label" %>
+        <div class="control">
+            <%= form.text_field :visit_time, class: "input" %>
+        </div>
+    </div>
+
+    <div class="field">
+        <%= form.label :spend, "消費金額*", class: "label" %>
+        <div class="control">
+            <%= form.text_field :spend, class: "input" %>
+        </div>
+    </div>
+
+    <div class="field">
+        <%= form.label :content, "感想*", class: "label" %>
+        <div class="control">
+            <%= form.text_area :content, class: "textarea" %>
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="control">
+            <%= form.text_field :store_id, class: "input is-hidden", value: @store.id %>
+        </div>
+    </div>
+
+
+    <div class="field">
+        <%= form.submit "提交資料", class: "button is-warning "%>
+    </div>
+    <%= link_to "取消", root_path, class: 'button is-light', method: 'GET' %> 
+
+<% end %>

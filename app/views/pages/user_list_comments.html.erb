@@ -1,1 +1,26 @@
-<h1>使用者評價清單頁面</h1>
+<h2 class="title" ><%= current_user.username%>&nbsp;所發表過的評價清單列表</h2>
+</br>
+<% @comments.each do |comment|%>
+    <div class="card">
+        <div class="card-content">
+            <div class="media">
+            <div class="media-left">
+                <%= avatar(comment.user, size:60)%>
+            </div>
+            <div class="media-content">
+                <p class="title is-4"><%=comment.user.username %>&nbsp;comment on&nbsp;<%=comment.store.title%></p>
+                <p class="subtitle">評價分數:&nbsp;<%=comment.score %>&nbsp;訪問次數:&nbsp;<%=comment.visit_count %>&nbsp;消費金額:&nbsp;<%=comment.spend %></p>
+            </div>
+            </div>
+
+            評論內容:
+            </br>
+            <div class="content">
+            <%=comment.content %>
+            <br>
+            <time><%=comment.user.updated_at%></time>
+            </div>
+        </div>
+    </div>
+    <div class="ribbon-table-line"></div>
+<% end %>

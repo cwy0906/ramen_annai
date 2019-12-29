@@ -3,7 +3,14 @@
 
     <%= render 'shared/frontend/message/identity'%>
     <%= render 'shared/frontend/message/relation_info'%>
-    
+
+    <% if notice %>      
+      <strong>提醒:&nbsp;<%= notice %></strong>
+    <% end %>
+
+    <% if alert %>
+      <strong>錯誤:&nbsp;<%= alert %></strong>
+    <% end %>
 
   </div>
 </article>

@@ -12,7 +12,7 @@ class StoresController < ApplicationController
         if @store.save
             user_session[:has_store?] = true 
             user_session.delete_if { |key,value| key == "form_error_message" }
-            redirect_to "/", notice: '店面資料新增成功' 
+            redirect_to "/", notice: "店面資料新增成功"
         else 
             user_session["form_error_message"] = blank_params_check(@store.errors.messages)                          
             render :new        
@@ -28,7 +28,7 @@ class StoresController < ApplicationController
     def update
         if @store = current_user.store.update(store_params)
             user_session.delete_if { |key,value| key == "form_error_message" }
-            redirect_to "/", notice: '店面資料修改成功'    
+            redirect_to "/", notice: "店面資料修改成功"    
         else
             user_session["form_error_message"] = blank_params_check(@store.errors.messages)                          
             render :edit
