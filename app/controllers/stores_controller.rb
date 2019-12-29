@@ -39,7 +39,19 @@ class StoresController < ApplicationController
         @store     = current_user.store
         @latitude  = Geocoder.search(current_user.store.address).first.coordinates[0].to_s
         @longitude = Geocoder.search(current_user.store.address).first.coordinates[1].to_s
+    end
+    
+    def show
+        if Store.find_by(id:params["id"])
+            @store     = Store.find_by(id:params["id"]) 
+            @latitude  = Geocoder.search(Store.find_by(id:params["id"]).address).first.coordinates[0].to_s
+            @longitude = Geocoder.search(Store.find_by(id:params["id"]).address).first.coordinates[1].to_s
+        else
+            redirect_to "/stores_error_show"
+        end    
+    end    
 
+    def error_show    
     end    
 
     private

@@ -6,9 +6,12 @@ export default class extends Controller {
         fetch(this.data.get("map-url"))   
         .then(response => response.text())
         .then(html => {        
-            document.getElementById("output").innerHTML = '<div class="subtitle">透過GoogleMap定位</div><p> <div id="map" class="Google_map">透過GoogleMap定位</div></p>'          
+            document.getElementById("output").innerHTML = html          
             let mapLat = document.getElementById("mapLat").innerHTML
             let mapLng = document.getElementById("mapLng").innerHTML
+
+            TriggerClassNnmeReset()
+            document.getElementById("gmap_trigger").className = "card-footer-item card-footer-item-chose"
             initMap(mapLat , mapLng )
             
             function initMap(lat, lng) {   
@@ -23,7 +26,14 @@ export default class extends Controller {
               map: map
               });
             }
+
+            function TriggerClassNnmeReset() {
+              document.getElementById("comment_trigger").className = "card-footer-item"
+              document.getElementById("menu_trigger").className    = "card-footer-item"
+              document.getElementById("album_trigger").className   = "card-footer-item"
+              document.getElementById("gmap_trigger").className    = "card-footer-item"
+            }
         })    
-      }
+    }
 
 }    

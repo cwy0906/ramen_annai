@@ -6,13 +6,25 @@ class PagesController < ApplicationController
     def select_user_type           
     end
 
-    def stimulus_demo
-    end    
 
-    def show_gmap
-        address    = params["address"]
-        @latitude  = Geocoder.search(address).first.coordinates[0].to_s
-        @longitude = Geocoder.search(address).first.coordinates[1].to_s
-    end    
-        
+
+
+
+    def new_comment
+        @user_id  = params["user_id"]
+        @store_id = params["store_id"]
+    end
+
+    def create_comment
+    end
+
+    def edit_comment
+    end
+
+    def update_comment
+    end
+
+    def user_list_comments
+    end
+
 end

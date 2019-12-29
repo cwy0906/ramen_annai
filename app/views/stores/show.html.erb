@@ -1,4 +1,4 @@
-<h2 class="title" >店家資料主頁</h2>
+<h2 class="title" >店家資料主頁-外部查詢結果</h2>
 
 <div class="card">
   <div class="card-image">
@@ -12,7 +12,7 @@
     <div class="media">
       <div class="media-left">
         <figure class="image">
-          <%= avatar(current_user,size:90) %>
+          <%= avatar(@store.user,size:90) %>
         </figure>
       </div>
       <div class="media-content">
@@ -23,6 +23,11 @@
         <%= @store.address %>
         </p>
       </div>
+
+      <% if current_user.id!= @store.user.id%>
+        <%= link_to "發表評論",  comment_new_path( user_id:current_user.id, store_id:@store.id ), class: 'button is-warning', method: 'GET' %>         
+      <% end %>  
+
     </div>
 
     <div class="content">
@@ -81,9 +86,3 @@
 
 <div id="mapLat" style="display:none" ><%= @latitude  %></div>
 <div id="mapLng" style="display:none" ><%= @longitude %></div>
-
-
-
-
-
-
