@@ -1,15 +1,13 @@
-<div id="ajax_output">
-    <p>
-        <div class="map_border">
-            <div class="title">Google Map</div>
-            <div id="map" class="Google_map"></div>
-        </div>
-        
-    </p>
 
-    <div id="mapLat" style="display:none" ><%= @latitude  %></div>
-    <div id="mapLng" style="display:none" ><%= @longitude %></div>
+<p>
+<div class="map_border">
+    <div class="title">Google Map</div>
+    <div id="map" class="Google_map"></div>
 </div>
+</p>
+<div id="mapLat" style="display:none" ><%= @latitude  %></div>
+<div id="mapLng" style="display:none" ><%= @longitude %></div>
+
 
 <% provide :head_tags do %>
     <meta name='turbolinks-visit-control' content='reload'>

@@ -6,7 +6,13 @@ class StoreSubPagesController < ApplicationController
         @longitude = Geocoder.search(address).first.coordinates[1].to_s
     end    
         
-    def store_list_comments     
+    def show_comments    
+    end    
+
+    def show_menu
+    end    
+
+    def show_album
     end    
 
 end

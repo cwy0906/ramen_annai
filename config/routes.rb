@@ -13,7 +13,8 @@ Rails.application.routes.draw do
   get "/user_type/sign_up",             to: "pages#select_user_type"
 
   get "/show_gmap",                     to: "store_sub_pages#show_gmap"
-  
+  get "/show_menu",                     to: "store_sub_pages#show_menu"
+  get "/show_album",                    to: "store_sub_pages#show_album"
 
 
 
@@ -25,11 +26,11 @@ Rails.application.routes.draw do
   scope :controller => "pages", :path => "/comments", :as => "comment" do
     get "new/:store_id"     => :new_comment,       :as => "new"
     get "create/:store_id"  => :create_comment,    :as => "create"
-    get "edit/:id"                   => :edit_comment,      :as => "edit"
-    get "update/:id"                 => :update_comment,    :as => "update"
+    get "edit/:id"          => :edit_comment,      :as => "edit"
+    get "update/:id"        => :update_comment,    :as => "update"
     get "user_list"         => :user_list_comments,:as => "by_user_list"
   end
-  get "/comments/store_list/:store_id", to: "store_sub_pages#store_list_comments", as: "comment_by_store_list"
+  get "/comments/store_list/:store_id", to: "store_sub_pages#show_comments", as: "comment_by_store_list"
 
 
 
