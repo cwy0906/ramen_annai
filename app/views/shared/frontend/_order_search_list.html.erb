@@ -1,0 +1,45 @@
+<p>排序方式：</p>
+</br>
+<div class="tabs is-boxed">
+  <ul>
+    <li class="is-active">
+      <a>
+        <span class="icon is-small"><i class="fas" aria-hidden="true"></i></span>
+        <span>評價分數</span>
+      </a>
+    </li>
+    <li>
+      <a>
+        <span class="icon is-small"><i class="fas" aria-hidden="true"></i></span>
+        <span>評價數目</span>
+      </a>
+    </li>
+    <li>
+      <a>
+        <span class="icon is-small"><i class="far" aria-hidden="true"></i></span>
+        <span>開幕日期</span>
+      </a>
+    </li>
+  </ul>
+</div>
+
+</br>
+---測試區塊---
+</br>
+
+<% @stores.each do |store|%>
+    <div class="card">
+        <div class="card-content">
+            <div class="media">
+            <div class="media-left">
+                <%= avatar(store.user, size:60)%>
+            </div>
+            <div class="media-content">
+                <p class="title is-4"><%=store.title%></p>
+                <p class="subtitle">地址:&nbsp;<%=store.address %>&nbsp;特色:&nbsp;<%=store.feature %>&nbsp;預算:&nbsp;<%=store.budget %></p>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="ribbon-table-line"></div>
+<% end %>

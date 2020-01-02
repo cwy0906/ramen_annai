@@ -10,7 +10,7 @@ class Users::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
   def create    
-    user_session[:has_store?] = Store.find_by( user_id: current_user.id ).present?
+    user_session[:has_store?] = Store.find_by( user_id: current_user.id ).present? if current_user.try(:id) != nil
     super
   end
 

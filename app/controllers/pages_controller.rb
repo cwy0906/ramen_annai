@@ -53,10 +53,39 @@ class PagesController < ApplicationController
         @comments = current_user.comments.order(updated_at: :desc)
     end
 
+    def search_stores
+        params         = key_word_params
+        geo_keyword    = params["geo_keyword"].nil?    ?   "" : params["geo_keyword"].strip
+        feat_keyword   = params["feat_keyword"].nil?   ?   "" : params["feat_keyword"].strip
+        order_keyword  = params["order_keyword"].nil?  ?   "" : params["order_keyword"].strip
+        filter_keyword = params["filter_keyword"].nil? ?   "" : params["filter_keyword"].strip
+
+        p "++++++++++++++++++"
+        p geo_keyword
+        p feat_keyword
+        p "++++++++++++++++++"
+
+        if geo_keyword == "" && feat_keyword == ""
+            flash[:alert]  = "所有搜尋欄位不得為空白"
+            redirect_to "/"
+        else
+            geo_keyword_fix = "%"+geo_keyword+"%"
+            feat_keyword_fix = "%"+feat_keyword+"%"
+            @stores = Store.where("address LIKE ?",geo_keyword_fix).where("title LIKE ? OR  feature LIKE ?",feat_keyword_fix,feat_keyword_fix).distinct
+            flash[:notice] = "查詢關鍵字為: "+ geo_keyword +feat_keyword+", 共回傳了"+@stores.count.to_s+"個結果"
+        end          
+
+
+    end    
+
     private
     def comment_params
         params.require(:comment).permit( :user_id, :store_id, :visit_count, :score,
                                          :visit_time, :spend, :content)   
+    end   
+    
+    def key_word_params
+        params.permit(:geo_keyword, :feat_keyword, :order_keyword, :filter_keyword)
     end    
 
     def is_self_comment?(current_user,store_id)

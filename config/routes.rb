@@ -16,10 +16,6 @@ Rails.application.routes.draw do
   get "/show_menu",                     to: "store_sub_pages#show_menu"
   get "/show_album",                    to: "store_sub_pages#show_album"
 
-
-
-
-
   get "/stores/:id",                    to: "stores#show"
   get "/stores_error_show",             to: "stores#error_show"
 
@@ -32,6 +28,6 @@ Rails.application.routes.draw do
   end
   get "/comments/store_list/:store_id", to: "store_sub_pages#show_comments", as: "comment_by_store_list"
 
-
+  get "/search_stores",                 to: "pages#search_stores",           as: "search_stores"  
 
 end

@@ -6,7 +6,10 @@ class StoreSubPagesController < ApplicationController
         @longitude = Geocoder.search(address).first.coordinates[1].to_s
     end    
         
-    def show_comments    
+    def show_comments
+        store_id  = params["store_id"]   
+        store     = Store.find_by(id:store_id) 
+        @comments = store.comments.order(updated_at: :desc)    
     end    
 
     def show_menu
