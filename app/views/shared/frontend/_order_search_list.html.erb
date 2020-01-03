@@ -23,23 +23,35 @@
   </ul>
 </div>
 
-</br>
----測試區塊---
-</br>
-
+<div class="result-list-div">
+<p>&nbsp;列出<%=@stores.count%>項結果</p>
 <% @stores.each do |store|%>
+    </br>
     <div class="card">
+        <header class="card-header">
+
+        <div class="card-title-dash">
+        <span class="card-header-title">
+        <p class="title is-4"><%=store.title%></p>
+        <p class="title is-6">&nbsp;特色:&nbsp;<%=store.feature %></p>
+        </span>
+        </div>
+
+        </header>
         <div class="card-content">
             <div class="media">
             <div class="media-left">
-                <%= avatar(store.user, size:60)%>
+                <%= avatar(store.user, size:80)%>
             </div>
             <div class="media-content">
-                <p class="title is-4"><%=store.title%></p>
-                <p class="subtitle">地址:&nbsp;<%=store.address %>&nbsp;特色:&nbsp;<%=store.feature %>&nbsp;預算:&nbsp;<%=store.budget %></p>
+              <p class="subtitle is-6">地址:&nbsp;<%=store.address %></p>
+              <p class="subtitle is-6">預算:&nbsp;<%=store.budget %></p>
+              <p>簡介:<%=store.intro %></p>
             </div>
+              
             </div>
         </div>
     </div>
-    <div class="ribbon-table-line"></div>
+    <div class="ribbon-table-line"></div>    
 <% end %>
+</div>
