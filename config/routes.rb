@@ -16,8 +16,8 @@ Rails.application.routes.draw do
   get "/show_menu",                     to: "store_sub_pages#show_menu"
   get "/show_album",                    to: "store_sub_pages#show_album"
 
-  get "/stores/:id",                    to: "stores#show"
-  get "/stores_error_show",             to: "stores#error_show"
+  get "/stores/:id",                    to: "pages#show_store",                  as: "show_store_page"
+  get "/stores_error_show",             to: "pages#error_show"
 
   scope :controller => "pages", :path => "/comments", :as => "comment" do
     get "new/:store_id"     => :new_comment,       :as => "new"

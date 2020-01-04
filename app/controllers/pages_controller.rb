@@ -35,7 +35,9 @@ class PagesController < ApplicationController
 
             if @comment.save
                 user_session.delete_if { |key,value| key == "form_error_message" }
-                redirect_to "/", notice: "店面資料新增成功"
+                update_store_related_comment(@store)
+                update_user_related_comment(current_user)
+                redirect_to "/", notice: "評論資料新增成功"
             else
                 user_session["form_error_message"] = blank_params_check(@comment.errors.messages)                          
                 render :new_comment
@@ -55,10 +57,10 @@ class PagesController < ApplicationController
 
     def search_stores
         params         = key_word_params
-        geo_keyword    = params["geo_keyword"].nil?    ?   "" : params["geo_keyword"].strip
-        feat_keyword   = params["feat_keyword"].nil?   ?   "" : params["feat_keyword"].strip
-        order_keyword  = params["order_keyword"].nil?  ?   "" : params["order_keyword"].strip
-        filter_keyword = params["filter_keyword"].nil? ?   "" : params["filter_keyword"].strip
+        geo_keyword    = params["geo_keyword"].nil?    ?            "" : params["geo_keyword"].strip
+        feat_keyword   = params["feat_keyword"].nil?   ?            "" : params["feat_keyword"].strip
+        order_keyword  = params["order_keyword"].nil?  ?   "avg_score" : params["order_keyword"].strip
+        filter_keyword = params["filter_keyword"].nil? ?            "" : params["filter_keyword"].strip
 
         p "++++++++++++++++++"
         p geo_keyword
@@ -71,12 +73,27 @@ class PagesController < ApplicationController
         else
             geo_keyword_fix = "%"+geo_keyword+"%"
             feat_keyword_fix = "%"+feat_keyword+"%"
-            @stores = Store.where("address LIKE ?",geo_keyword_fix).where("title LIKE ? OR  feature LIKE ?",feat_keyword_fix,feat_keyword_fix).distinct
+            @stores = Store.where("address LIKE ?",geo_keyword_fix).where("title LIKE ? OR  feature LIKE ?",feat_keyword_fix,feat_keyword_fix).order(order_keyword.to_sym => :desc).distinct
             flash[:notice] = "查詢關鍵字為: "+ geo_keyword +feat_keyword+", 共回傳了"+@stores.count.to_s+"個結果"
+            @geo_kw_temp    = geo_keyword
+            @feat_kw_temp   = feat_keyword
+            @order_kw_temp  = order_keyword
+            @filter_kw_temp = filter_keyword
         end          
-
-
     end    
+
+    def show_store
+        if Store.find_by(id:params["id"])
+            @store     = Store.find_by(id:params["id"]) 
+            @latitude  = Geocoder.search(Store.find_by(id:params["id"]).address).first.coordinates[0].to_s
+            @longitude = Geocoder.search(Store.find_by(id:params["id"]).address).first.coordinates[1].to_s
+        else
+            redirect_to "/stores_error_show"
+        end      
+    end    
+
+    def error_show    
+    end  
 
     private
     def comment_params
@@ -99,4 +116,17 @@ class PagesController < ApplicationController
     def blank_params_check(message_hash)    
         message_hash.keep_if {|key, value| value == ["can't be blank"] }.keys.to_s+"以上欄位不得為空白" 
     end 
+
+    def update_store_related_comment(store) 
+        renew_comments_count = store.comments_count
+        renew_comments_count = renew_comments_count+1
+        renew_avg_score      = Comment.where(store_id:store.id ).average(:score).to_f.round(2)        
+        store.update_attributes(avg_score: renew_avg_score, comments_count: renew_comments_count )   
+    end
+    
+    def update_user_related_comment(user)
+        renew_comment_count = user.comment_count.to_i + 1  
+        user.update_attribute(:comment_count,renew_comment_count)
+    end    
+    
 end

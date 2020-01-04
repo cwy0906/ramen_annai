@@ -1,11 +1,11 @@
 <%= form_tag("/search_stores", method: "get") do %>
 <div data-controller="main-page-event" class="field has-addons columns is-gapless main_search_bar" >
     <div class="control column">
-        <%= text_field_tag :geo_keyword, "", class:"input", id:"serch_input_01", data:{action:"click->main-page-event#showDashBar01"}, placeholder:"區域、街道名" %>
+        <%= text_field_tag :geo_keyword, @geo_kw_temp, class:"input", id:"serch_input_01", data:{action:"click->main-page-event#showDashBar01"}, placeholder:"區域、街道名" %>
         <div   id="serch_dashBar_01" class=""></div>
     </div> 
     <div class="control column"> 
-        <%= text_field_tag :feat_keyword, "", class:"input", id:"serch_input_02", data:{action:"click->main-page-event#showDashBar02"}, placeholder:"店名、特色" %>
+        <%= text_field_tag :feat_keyword, @feat_kw_temp, class:"input", id:"serch_input_02", data:{action:"click->main-page-event#showDashBar02"}, placeholder:"店名、特色" %>
         <div   id="serch_dashBar_02" class=""></div>
     </div>
     <div class="control">

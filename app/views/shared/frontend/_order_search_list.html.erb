@@ -2,24 +2,39 @@
 </br>
 <div class="tabs is-boxed">
   <ul>
-    <li class="is-active">
-      <a>
-        <span class="icon is-small"><i class="fas" aria-hidden="true"></i></span>
-        <span>評價分數</span>
-      </a>
+    <% if @order_kw_temp == "avg_score" %>
+      <li class="is-active">
+    <% else %>
+      <li class="">
+    <% end %>
+        <span>
+        <%= link_to "評價分數", search_stores_path(geo_keyword:@geo_kw_temp, feat_keyword:@feat_kw_temp,
+                                                  order_keyword:"avg_score", filter_keyword:@filter_kw_temp) %>
+        </span>
     </li>
-    <li>
-      <a>
-        <span class="icon is-small"><i class="fas" aria-hidden="true"></i></span>
-        <span>評價數目</span>
-      </a>
+
+    <% if @order_kw_temp == "comments_count" %>  
+      <li class="is-active">
+    <% else %>
+      <li class="">
+    <% end %>
+        <span>
+        <%= link_to "評論數目", search_stores_path(geo_keyword:@geo_kw_temp, feat_keyword:@feat_kw_temp,
+                                                  order_keyword:"comments_count", filter_keyword:@filter_kw_temp) %>        
+        </span>
     </li>
-    <li>
-      <a>
-        <span class="icon is-small"><i class="far" aria-hidden="true"></i></span>
-        <span>開幕日期</span>
-      </a>
+
+    <% if @order_kw_temp == "updated_at" %> 
+      <li class="is-active">
+    <% else %>
+      <li class="">
+    <% end %>
+        <span>
+        <%= link_to "更新日期", search_stores_path(geo_keyword:@geo_kw_temp, feat_keyword:@feat_kw_temp,
+                                                  order_keyword:"updated_at", filter_keyword:@filter_kw_temp) %>           
+        </span>
     </li>
+
   </ul>
 </div>
 
@@ -27,6 +42,7 @@
 <p>&nbsp;列出<%=@stores.count%>項結果</p>
 <% @stores.each do |store|%>
     </br>
+    <%= link_to show_store_page_path(store.id) do %>
     <div class="card">
         <header class="card-header">
 
@@ -45,6 +61,8 @@
             </div>
             <div class="media-content">
               <p class="subtitle is-6">地址:&nbsp;<%=store.address %></p>
+              <p class="subtitle is-6">平均分數:&nbsp;<%=store.avg_score %></p>
+              <p class="subtitle is-6">被評論數:&nbsp;<%=store.comments_count %></p>
               <p class="subtitle is-6">預算:&nbsp;<%=store.budget %></p>
               <p>簡介:<%=store.intro %></p>
             </div>
@@ -52,6 +70,7 @@
             </div>
         </div>
     </div>
+    <% end %>
     <div class="ribbon-table-line"></div>    
 <% end %>
 </div>
