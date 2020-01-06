@@ -103,6 +103,62 @@ class PagesController < ApplicationController
     def error_show    
     end  
 
+    def edit_menu
+        store_id = params["store_id"]
+        if Menu.find_by(store_id:store_id ).present?
+            menuArray    = Menu.find_by(store_id:store_id).content.split("?")
+            @menu_status = "revise"
+            @dish_01     = menuArray[0]
+            @dish_02     = menuArray[2]
+            @dish_03     = menuArray[4]
+            @dish_04     = menuArray[6]
+            @dish_05     = menuArray[8]
+            @price_01    = menuArray[1]
+            @price_02    = menuArray[3]
+            @price_03    = menuArray[5]
+            @price_04    = menuArray[7]
+            @price_05    = menuArray[9]
+        else
+            @menu_status = "create"
+            @dish_01     = ""
+            @dish_02     = ""
+            @dish_03     = ""
+            @dish_04     = ""
+            @dish_05     = ""
+            @price_01    = "100"
+            @price_02    = "100"
+            @price_03    = "100"
+            @price_04    = "100"
+            @price_05    = "100"
+        end    
+    end
+    
+    def update_menu
+        params      = menu_params
+        store_id    = params["store_id"]
+        menu_status = params["menu_status"]
+        content     = menu_content_chain(params)
+
+        if menu_status == "create"
+            if Menu.new(store_id: store_id, content: content).save
+                flash[:notice]  = "菜單內容新增成功"
+                redirect_to "/"
+            else
+                flash[:notice]  = "菜單內容新增失敗"
+                redirect_to "/"
+            end 
+        elsif menu_status == "revise"   
+            if Menu.update(store_id: store_id, content: content)
+                flash[:notice]  = "菜單內容修改成功"
+                redirect_to "/"
+            else
+                flash[:notice]  = "菜單內容修改失敗"
+                redirect_to "/"
+            end     
+        end
+        
+    end    
+   
     private
     def comment_params
         params.require(:comment).permit( :user_id, :store_id, :visit_count, :score,
@@ -111,6 +167,11 @@ class PagesController < ApplicationController
     
     def key_word_params
         params.permit(:geo_keyword, :feat_keyword, :order_keyword, :filter_price_from_keyword, :filter_price_to_keyword)
+    end    
+
+    def menu_params
+        params.permit(:store_id, :dish_01, :dish_02, :dish_03, :dish_04, :dish_05,
+                      :price_01, :price_02, :price_03, :price_04, :price_05, :menu_status);
     end    
 
     def is_self_comment?(current_user,store_id)
@@ -137,4 +198,8 @@ class PagesController < ApplicationController
         user.update_attribute(:comment_count,renew_comment_count)
     end    
     
+    def menu_content_chain(params)
+        content = "#{params["dish_01"]}?#{params["price_01"]}?#{params["dish_02"]}?#{params["price_02"]}?#{params["dish_03"]}?#{params["price_03"]}?#{params["dish_04"]}?#{params["price_04"]}?#{params["dish_05"]}?#{params["price_05"]}"    
+    end    
+
 end

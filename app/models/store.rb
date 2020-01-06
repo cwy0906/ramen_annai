@@ -9,5 +9,6 @@ class Store < ApplicationRecord
   validates  :budget, presence: true
   validates  :feature, presence: true
   has_many :comments
+  has_one  :menu
 end
 

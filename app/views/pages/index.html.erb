@@ -1,4 +1,3 @@
-
 <%= render 'shared/frontend/main_search_bar'%>
 <%= render 'shared/frontend/message'%>
 
@@ -10,17 +9,20 @@
 
 <p>
 current_user資訊
-<br/>
+</br>
 <%= current_user.attributes if current_user.present?%>
 </p>
 
-<br/>
+</br>
 
 <p>
 user_session資訊:
-<br/>
+</br>
 <%= user_session if user_session.present?%>
 </p>
+
+
+
 
 
 

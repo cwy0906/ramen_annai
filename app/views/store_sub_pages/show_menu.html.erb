@@ -1,5 +1,52 @@
 <p>
-<div class="map_border">
-    <div class="title">店家菜單列表頁面</div>
+<div class="menu_border">
+    <div class="title menu_center_border">店家菜單列表頁面</div>
+    <% if @menu_exist %>
+    </br>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>項次</th>
+                <th>料理名稱</th>
+                <th>價格</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <th>1</th>
+                <th><%= @dish_01 %></th>
+                <th><%= @price_01 %></th>
+            </tr>
+            <tr>
+                <th>2</th>
+                <th><%= @dish_02 %></th>
+                <th><%= @price_02 %></th>
+            </tr>   
+            <tr>
+                <th>3</th>
+                <th><%= @dish_03 %></th>
+                <th><%= @price_03 %></th>
+            </tr> 
+            <tr>
+                <th>4</th>
+                <th><%= @dish_04 %></th>
+                <th><%= @price_04 %></th>
+            </tr>    
+            <tr>
+                <th>5</th>
+                <th><%= @dish_05 %></th>
+                <th><%= @price_05 %></th>
+            </tr>
+        </tbody>
+    </table>
+    <% else %>
+        <p>目前暫無菜單資料</p>
+    <% end %>
 </div>
 </p>
+
+
+
+
+                

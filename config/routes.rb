@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   get "/user_type/sign_up",             to: "pages#select_user_type"
 
   get "/show_gmap",                     to: "store_sub_pages#show_gmap"
-  get "/show_menu",                     to: "store_sub_pages#show_menu"
+  get "/show_menu/:store_id",           to: "store_sub_pages#show_menu"
   get "/show_album",                    to: "store_sub_pages#show_album"
 
   get "/stores/:id",                    to: "pages#show_store",                  as: "show_store_page"
@@ -29,5 +29,8 @@ Rails.application.routes.draw do
   get "/comments/store_list/:store_id", to: "store_sub_pages#show_comments", as: "comment_by_store_list"
 
   get "/search_stores",                 to: "pages#search_stores",           as: "search_stores"  
+
+  get "/edit_menu/:store_id",           to: "pages#edit_menu",               as: "edit_menu"
+  get "/update_menu/:store_id",         to: "pages#update_menu",               as: "update_menu"
 
 end
