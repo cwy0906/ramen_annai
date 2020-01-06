@@ -56,29 +56,37 @@ class PagesController < ApplicationController
     end
 
     def search_stores
-        params         = key_word_params
-        geo_keyword    = params["geo_keyword"].nil?    ?            "" : params["geo_keyword"].strip
-        feat_keyword   = params["feat_keyword"].nil?   ?            "" : params["feat_keyword"].strip
-        order_keyword  = params["order_keyword"].nil?  ?   "avg_score" : params["order_keyword"].strip
-        filter_keyword = params["filter_keyword"].nil? ?            "" : params["filter_keyword"].strip
+        params                    = key_word_params
+        geo_keyword               = params["geo_keyword"].nil?                ?            "" : params["geo_keyword"].strip
+        feat_keyword              = params["feat_keyword"].nil?               ?            "" : params["feat_keyword"].strip
+        order_keyword             = params["order_keyword"].nil?              ?   "avg_score" : params["order_keyword"].strip
+        filter_price_from_keyword = params["filter_price_from_keyword"].nil?  ?             1 : params["filter_price_from_keyword"].to_i
+        filter_price_to_keyword   = params["filter_price_to_keyword"].nil?    ?          1000 : params["filter_price_to_keyword"].to_i
 
-        p "++++++++++++++++++"
-        p geo_keyword
-        p feat_keyword
-        p "++++++++++++++++++"
+        if    filter_price_from_keyword > filter_price_to_keyword 
+            filter_depiction =  "error" 
+        elsif filter_price_from_keyword == filter_price_to_keyword     
+            filter_depiction =  "budget = "+ filter_price_from_keyword.to_s
+        else
+            filter_depiction = filter_price_from_keyword.to_s+" <= budget AND "+filter_price_to_keyword.to_s+" >= budget"
+        end    
 
         if geo_keyword == "" && feat_keyword == ""
             flash[:alert]  = "所有搜尋欄位不得為空白"
             redirect_to "/"
-        else
+        elsif filter_depiction == "error"
+            flash[:alert]  = "價格區間設定錯誤"
+            redirect_to "/"
+        else    
             geo_keyword_fix = "%"+geo_keyword+"%"
             feat_keyword_fix = "%"+feat_keyword+"%"
-            @stores = Store.where("address LIKE ?",geo_keyword_fix).where("title LIKE ? OR  feature LIKE ?",feat_keyword_fix,feat_keyword_fix).order(order_keyword.to_sym => :desc).distinct
-            flash[:notice] = "查詢關鍵字為: "+ geo_keyword +feat_keyword+", 共回傳了"+@stores.count.to_s+"個結果"
+            @stores = Store.where("address LIKE ?",geo_keyword_fix).where("title LIKE ? OR  feature LIKE ?",feat_keyword_fix,feat_keyword_fix).where(filter_depiction).order(order_keyword.to_sym => :desc).distinct
+            flash[:notice] = "查詢關鍵字為: " + geo_keyword+"、"+feat_keyword+", 共回傳了"+@stores.count.to_s+"個結果"
             @geo_kw_temp    = geo_keyword
             @feat_kw_temp   = feat_keyword
             @order_kw_temp  = order_keyword
-            @filter_kw_temp = filter_keyword
+            @filter_kw_price_from_temp = filter_price_from_keyword 
+            @filter_kw_price_to_temp   = filter_price_to_keyword
         end          
     end    
 
@@ -102,7 +110,7 @@ class PagesController < ApplicationController
     end   
     
     def key_word_params
-        params.permit(:geo_keyword, :feat_keyword, :order_keyword, :filter_keyword)
+        params.permit(:geo_keyword, :feat_keyword, :order_keyword, :filter_price_from_keyword, :filter_price_to_keyword)
     end    
 
     def is_self_comment?(current_user,store_id)
