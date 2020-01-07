@@ -7,9 +7,14 @@ class StoreSubPagesController < ApplicationController
     end    
         
     def show_comments
-        store_id  = params["store_id"]   
-        store     = Store.find_by(id:store_id) 
-        @comments = store.comments.order(updated_at: :desc)    
+        store_id  = params["store_id"]
+        store     = Store.find_by(id:store_id)
+        if store.comments.present? 
+            @comments_exist = true
+            @comments = store.comments.order(updated_at: :desc)
+        else
+            @comments_exist = false
+        end        
     end    
 
     def show_menu

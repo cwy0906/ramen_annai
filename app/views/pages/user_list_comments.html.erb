@@ -1,5 +1,6 @@
 <h2 class="title" ><%= current_user.username%>&nbsp;所發表過的評價清單列表</h2>
 </br>
+<% if @comments_exist %>
 <% @comments.each do |comment|%>
     <div class="card">
         <div class="card-content">
@@ -23,4 +24,7 @@
         </div>
     </div>
     <div class="ribbon-table-line"></div>
+<% end %>
+<% else %>
+    <p>目前暫無已發表評論資料</p>
 <% end %>

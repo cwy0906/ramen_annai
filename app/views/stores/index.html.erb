@@ -20,6 +20,9 @@
         <%= @store.title %>
         </p>
         <p class="subtitle is-6">
+        <%= @store.avg_score %>
+        </p>
+        <p class="subtitle is-6">
         <%= @store.address %>
         </p>
       </div>
@@ -82,8 +85,8 @@
 
 </div>
 
-<div id="mapLat" style="display:none" ><%= @latitude  %></div>
-<div id="mapLng" style="display:none" ><%= @longitude %></div>
+<div id="mapLat" class="is-hidden" ><%= @latitude  %></div>
+<div id="mapLng" class="is-hidden" ><%= @longitude %></div>
 
 
 

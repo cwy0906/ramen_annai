@@ -1,6 +1,7 @@
 <p>
 <div class="comments_border">
     <div class="title">店家評價列表頁面</div>
+    <% if @comments_exist %>
     <div class="ribbon-table-line"></div>
     <% @comments.each do |comment|%>
         <div class="card">
@@ -25,6 +26,9 @@
             </div>
         </div>
         <div class="ribbon-table-line"></div>
+    <% end %>
+    <% else %>
+        <p>目前暫無評論資料</p>
     <% end %>
 </div>
 </p>

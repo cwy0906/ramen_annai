@@ -52,7 +52,12 @@ class PagesController < ApplicationController
     end
 
     def user_list_comments
-        @comments = current_user.comments.order(updated_at: :desc)
+        if current_user.comments.present?
+            @comments_exist = true
+            @comments = current_user.comments.order(updated_at: :desc)
+        else
+            @comments_exist = false
+        end       
     end
 
     def search_stores
@@ -80,8 +85,12 @@ class PagesController < ApplicationController
         else    
             geo_keyword_fix = "%"+geo_keyword+"%"
             feat_keyword_fix = "%"+feat_keyword+"%"
+            condition_keyword = ( "" if geo_keyword.empty? && feat_keyword.empty?) || 
+                                (geo_keyword if !geo_keyword.empty? && feat_keyword.empty?) || 
+                                (feat_keyword if geo_keyword.empty? && !feat_keyword.empty?) ||
+                                (geo_keyword+"、"+feat_keyword)
             @stores = Store.where("address LIKE ?",geo_keyword_fix).where("title LIKE ? OR  feature LIKE ?",feat_keyword_fix,feat_keyword_fix).where(filter_depiction).order(order_keyword.to_sym => :desc).distinct
-            flash[:notice] = "查詢關鍵字為: " + geo_keyword+"、"+feat_keyword+", 共回傳了"+@stores.count.to_s+"個結果"
+            flash[:notice] = "查詢關鍵字為: " +condition_keyword+", 共回傳了"+@stores.count.to_s+"個結果"
             @geo_kw_temp    = geo_keyword
             @feat_kw_temp   = feat_keyword
             @order_kw_temp  = order_keyword
@@ -93,8 +102,8 @@ class PagesController < ApplicationController
     def show_store
         if Store.find_by(id:params["id"])
             @store     = Store.find_by(id:params["id"]) 
-            @latitude  = Geocoder.search(Store.find_by(id:params["id"]).address).first.coordinates[0].to_s
-            @longitude = Geocoder.search(Store.find_by(id:params["id"]).address).first.coordinates[1].to_s
+            @latitude  = Geocoder.search(@store.address).first.coordinates[0].to_s
+            @longitude = Geocoder.search(@store.address).first.coordinates[1].to_s
         else
             redirect_to "/stores_error_show"
         end      
@@ -125,11 +134,11 @@ class PagesController < ApplicationController
             @dish_03     = ""
             @dish_04     = ""
             @dish_05     = ""
-            @price_01    = "100"
-            @price_02    = "100"
-            @price_03    = "100"
-            @price_04    = "100"
-            @price_05    = "100"
+            @price_01    = "0"
+            @price_02    = "0"
+            @price_03    = "0"
+            @price_04    = "0"
+            @price_05    = "0"
         end    
     end
     
@@ -155,8 +164,7 @@ class PagesController < ApplicationController
                 flash[:notice]  = "菜單內容修改失敗"
                 redirect_to "/"
             end     
-        end
-        
+        end     
     end    
    
     private
@@ -201,5 +209,4 @@ class PagesController < ApplicationController
     def menu_content_chain(params)
         content = "#{params["dish_01"]}?#{params["price_01"]}?#{params["dish_02"]}?#{params["price_02"]}?#{params["dish_03"]}?#{params["price_03"]}?#{params["dish_04"]}?#{params["price_04"]}?#{params["dish_05"]}?#{params["price_05"]}"    
     end    
-
 end

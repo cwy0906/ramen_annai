@@ -29,7 +29,7 @@
 
         <div class="control column">
             <%= label_tag "1-價格", nil, class: "label" %>
-            <%= number_field_tag "price_01", @price_01, min: 1, max: 1000, step: 1, class: "input" %>
+            <%= number_field_tag "price_01", @price_01, min: 0, max: 1000, step: 1, class: "input" %>
         </div>
     </div>
 
@@ -41,7 +41,7 @@
 
         <div class="control column">
             <%= label_tag "2-價格", nil, class: "label" %>
-            <%= number_field_tag "price_02", @price_02, min: 1, max: 1000, step: 1, class: "input" %>
+            <%= number_field_tag "price_02", @price_02, min: 0, max: 1000, step: 1, class: "input" %>
         </div>
     </div>
 
@@ -53,7 +53,7 @@
 
         <div class="control column">
             <%= label_tag "3-價格", nil, class: "label" %>
-            <%= number_field_tag "price_03", @price_03, min: 1, max: 1000, step: 1, class: "input" %>
+            <%= number_field_tag "price_03", @price_03, min: 0, max: 1000, step: 1, class: "input" %>
         </div>
     </div>
 
@@ -65,7 +65,7 @@
 
         <div class="control column">
             <%= label_tag "4-價格", nil, class: "label" %>
-            <%= number_field_tag "price_04", @price_04, min: 1, max: 1000, step: 1, class: "input" %>
+            <%= number_field_tag "price_04", @price_04, min: 0, max: 1000, step: 1, class: "input" %>
         </div>
     </div>
 
@@ -77,12 +77,12 @@
 
         <div class="control column">
             <%= label_tag "5-價格", nil, class: "label" %>
-            <%= number_field_tag "price_05", @price_05, min: 1, max: 1000, step: 1, class: "input" %>
+            <%= number_field_tag "price_05", @price_05, min: 0, max: 1000, step: 1, class: "input" %>
         </div>
     </div>
 
     <div class="field">
-        <%= submit_tag "送出資料", class:"button is-warning" %>
+        <%= submit_tag "提交資料", class:"button is-warning" %>
     </div>
 
     <div class="field">

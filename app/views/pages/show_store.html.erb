@@ -1,7 +1,6 @@
 <h2 class="title" >店家資料主頁-外部查詢結果</h2>
 
 <nav class="breadcrumb has-arrow-separator" aria-label="breadcrumbs">
-  
   <ul>
     地理位置：
     <li><%= link_to @store.city,     search_stores_path(geo_keyword:@store.city) %></li>
@@ -33,14 +32,16 @@
         <%= @store.title %>
         </p>
         <p class="subtitle is-6">
-        <%= @store.address %>
+        <%= @store.avg_score %>
+        </p>
+        <p class="subtitle is-6">
+        <%= @store.address %>        
         </p>
       </div>
 
       <% if  current_user.present? && current_user.id!= @store.user.id%>
         <%= link_to "發表評論",  comment_new_path( user_id:current_user.id, store_id:@store.id ), class: 'button is-warning', method: 'GET' %>         
       <% end %>  
-
     </div>
 
     <div class="content">
@@ -100,5 +101,5 @@
 
 </div>
 
-<div id="mapLat" style="display:none" ><%= @latitude  %></div>
-<div id="mapLng" style="display:none" ><%= @longitude %></div>
+<div id="mapLat" class="is-hidden" ><%= @latitude  %></div>
+<div id="mapLng" class="is-hidden" ><%= @longitude %></div>
