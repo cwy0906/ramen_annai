@@ -13,7 +13,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create 
     super
-    user_session[:has_store?] = Store.find_by( user_id: current_user.id ).present?
+    if current_user.try(:id)
+      user_session[:has_store?] = Store.find_by( user_id: current_user.id ).present?
+    end  
   end
 
   # GET /resource/edit
