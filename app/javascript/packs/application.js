@@ -17,3 +17,7 @@ require("channels")
 // const imagePath = (name) => images(name, true)
 
 import "controllers"
+
+import $ from 'jquery'
+window.jQuery = $
+window.$ = $
