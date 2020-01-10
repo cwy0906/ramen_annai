@@ -27,6 +27,7 @@ class StoresController < ApplicationController
     
     def update
         if @store = current_user.store.update(store_params)
+            @store.store_images.attach(store_params[:store_images])
             user_session.delete_if { |key,value| key == "form_error_message" }
             redirect_to "/", notice: "店面資料修改成功"    
         else
@@ -45,7 +46,8 @@ class StoresController < ApplicationController
     def store_params
         params.require(:store).permit(:user_id, :tiltle, :city, :district, :title,
                                       :address, :tel, :promote, :intro, :feature,
-                                      :opening_hours, :closed_day, :budget, :memo)    
+                                      :opening_hours, :closed_day, :budget, :memo,
+                                      store_images: [])    
     end    
 
     def blank_params_check(message_hash)    

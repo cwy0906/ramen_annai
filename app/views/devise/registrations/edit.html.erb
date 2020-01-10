@@ -15,11 +15,17 @@
   <div class="field">
     <%= f.label :avatar, "大頭照", class:"label" %>
     <div class="control">
-      <%= f.file_field :avatar %>
+      <%= f.file_field :avatar, id:"avatar_input" %>
     </div>
 
-    <%= avatar(current_user) %>
- 
+    <div class="preview_region">
+    <% if current_user.avatar.attached? %>
+      <%= avatar(current_user) %>
+    <% else %>
+      <%= image_tag("no_picture.png", size:"250x250", class: "user-avatar") %>
+    <% end %>
+    </div>
+
   </div>
   <br>
 
@@ -67,3 +73,21 @@
 <% end %>
 
 <%= link_to "取消", :back , class:"button is-light" %>
+
+
+
+<script>
+
+$(function(){
+  $("#avatar_input").on("change", function(e){
+    const file = this.files[0];
+    const fr = new FileReader();    
+    fr.onload = function (e) {
+      $(".preview_region .user-avatar").attr("src",e.target.result);
+    };
+    fr.readAsDataURL(file);
+    $(".preview_region .user-avatar").attr({width:"250", height:"250"});
+  })
+}); 
+
+</script>>

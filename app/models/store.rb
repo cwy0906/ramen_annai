@@ -10,5 +10,6 @@ class Store < ApplicationRecord
   validates  :feature, presence: true
   has_many :comments
   has_one  :menu
+  has_many_attached :store_images
 end
 
