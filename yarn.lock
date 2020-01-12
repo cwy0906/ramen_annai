@@ -985,6 +985,13 @@ acorn@^6.2.1:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-6.4.0.tgz#b659d2ffbafa24baf5db1cdbb2c94a983ecd2784"
   integrity sha512-gac8OEcQ2Li1dxIEWGZzsp2BitJxwkwcOm0zHAJLcPJaVvm58FRnk6RkuLRpU1EujipU2ZFODv2P9DLMfnV8mw==
 
+activestorage@^5.2.4-1:
+  version "5.2.4-1"
+  resolved "https://registry.yarnpkg.com/activestorage/-/activestorage-5.2.4-1.tgz#f57d0fb331f8963b883127acaed23a0316f11e75"
+  integrity sha512-yKzo63uwQahYvETkOgDJ2iWpMGAnU76yQrIBShmp1FXhPgSptO6sryXYXxsd174h+7p+RSbHJflAKbRdZuqYYQ==
+  dependencies:
+    spark-md5 "^3.0.0"
+
 aggregate-error@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/aggregate-error/-/aggregate-error-3.0.1.tgz#db2fe7246e536f40d9b5442a39e117d7dd6a24e0"

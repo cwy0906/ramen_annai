@@ -83,7 +83,7 @@ GEM
       warden (~> 1.2.3)
     erubi (1.9.0)
     ffi (1.11.3)
-    geocoder (1.5.2)
+    geocoder (1.6.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     gmaps4rails (2.1.2)
@@ -225,7 +225,7 @@ DEPENDENCIES
   byebug
   capybara (>= 2.15)
   devise (~> 4.7, >= 4.7.1)
-  geocoder (~> 1.5, >= 1.5.2)
+  geocoder (~> 1.6)
   gmaps4rails (~> 2.1, >= 2.1.2)
   image_processing (~> 1.9, >= 1.9.3)
   jbuilder (~> 2.7)

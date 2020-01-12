@@ -1,0 +1,34 @@
+<h1>相簿編輯測試頁</h1>
+  
+</br>
+<div data-controller="store-images-direct-upload"
+     data-uploads-direct-upload-url="/update_store_pictures/<%= @store.id %>"
+     id="store_images_preview_region">
+
+    <input type="file" name="store_images" multiple="true" data-action="change->store-images-direct-upload#start" direct_upload="true" id="store_images_input">
+
+    </br>
+    <% if current_user.store.store_images.attached? %>
+        <p>已上傳圖片之列表</p>
+        <% @store.store_images.each do |store_image| %>
+            <%= image_tag store_image.variant(resize: '250x250') %>
+            <%= link_to '刪除', delete_store_picture_path(store_id:@store.id, id:store_image.id), method: :get %>
+        <% end %>   
+    <% else %>
+        <p>目前尚無圖片上傳</p>        
+    <% end %>    
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -27,7 +27,6 @@ class StoresController < ApplicationController
     
     def update
         if @store = current_user.store.update(store_params)
-            @store.store_images.attach(store_params[:store_images])
             user_session.delete_if { |key,value| key == "form_error_message" }
             redirect_to "/", notice: "店面資料修改成功"    
         else
@@ -42,12 +41,24 @@ class StoresController < ApplicationController
         @longitude = Geocoder.search(current_user.store.address).first.coordinates[1].to_s
     end
    
+    def edit_pictures
+        @store     = current_user.store
+    end
+    
+    def update_pictures        
+    end   
+    
+    def delete_picture      
+    end    
+
     private
     def store_params
         params.require(:store).permit(:user_id, :tiltle, :city, :district, :title,
                                       :address, :tel, :promote, :intro, :feature,
-                                      :opening_hours, :closed_day, :budget, :memo,
-                                      store_images: [])    
+                                      :opening_hours, :closed_day, :budget, :memo)    
+    end    
+
+    def update_pictures_params
     end    
 
     def blank_params_check(message_hash)    

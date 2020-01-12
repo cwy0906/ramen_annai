@@ -33,4 +33,9 @@ Rails.application.routes.draw do
   get "/edit_menu/:store_id",           to: "pages#edit_menu",               as: "edit_menu"
   get "/update_menu/:store_id",         to: "pages#update_menu",               as: "update_menu"
 
+  get "/edit_store_pictures/:store_id",                     to: "stores#edit_pictures",        as: "edit_store_pictures"
+  post "/update_store_pictures/:store_id",                   to: "stores#update_pictures",      as: "update_store_pictures"
+  get  "/delete_store_picture/:store_id/store_picture/:id",  to: "stores#delete_picture",       as: "delete_store_picture"
+
+
 end

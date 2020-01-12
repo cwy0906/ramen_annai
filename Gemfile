@@ -35,7 +35,7 @@ gem 'devise', '~> 4.7', '>= 4.7.1'
 
 # GoogleMap&Map Api
 gem 'gmaps4rails', '~> 2.1', '>= 2.1.2'
-gem 'geocoder', '~> 1.5', '>= 1.5.2'
+gem 'geocoder', '~> 1.6'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

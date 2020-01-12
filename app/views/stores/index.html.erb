@@ -64,10 +64,10 @@
   </div>
 
   <div data-controller = "substore-content-loader"
-      data-substore-content-loader-map-url      ="/show_gmap?address=<%= @store.address %>"
-      data-substore-content-loader-comments-url ="/comments/store_list/<%= @store.id %>"
-      data-substore-content-loader-menu-url ="/show_menu/<%= @store.id %>"
-      data-substore-content-loader-album-url ="/show_album" >
+       data-substore-content-loader-map-url      ="/show_gmap?address=<%= @store.address %>"
+       data-substore-content-loader-comments-url ="/comments/store_list/<%= @store.id %>"
+       data-substore-content-loader-menu-url     ="/show_menu/<%= @store.id %>"
+       data-substore-content-loader-album-url    ="/show_album" >
 
     <footer class="card-footer">
       <a data-action="click->substore-content-loader#showComments" id="comments_trigger" class="card-footer-item">評價</a>
