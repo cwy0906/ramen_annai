@@ -1,0 +1,104 @@
+.direct-upload {
+    display: inline-block;
+    position: relative;
+    padding: 2px 4px;
+    margin: 0 3px 3px 0;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+    font-size: 11px;
+    line-height: 13px;
+}
+  
+.direct-upload--pending {
+    opacity: 0.6;
+}
+  
+.direct-upload__progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    opacity: 0.2;
+    background: #0076ff;
+    transition: width 120ms ease-out, opacity 60ms 60ms ease-in;
+    transform: translate3d(0, 0, 0);
+}
+  
+.direct-upload--complete .direct-upload__progress {
+    opacity: 0.4;
+}
+  
+.direct-upload--error {
+    border-color: red;
+}
+  
+input[type=file][data-direct-upload-url][disabled] {
+    display: none;
+}
+
+.uploads {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .img-wrapper {
+    display: inline-flex;
+    border: 1px solid #d9d9d9;
+    min-width: 100px;
+    min-height: 100px;
+    border-radius: 3px;
+    margin-right: 15px;
+    padding: 5px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  
+    .progress {
+      width: 80%;
+      height: 10px;
+      background-color: #ccc;
+      border-radius: 5px;
+      position: relative;
+  
+      .progress-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        opacity: 0.8;
+        border-radius: 5px;
+        background: #0076ff;
+        transition: width 120ms ease-out, opacity 60ms 60ms ease-in;
+        transform: translate3d(0, 0, 0);
+      }
+    }
+  }
+  
+  .lds-dual-ring {
+    display: inline-flex;
+    width: 64px;
+    height: 64px;
+    justify-content: center;
+  align-items: center;
+  }
+  
+  .lds-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 46px;
+    height: 46px;
+    margin: 1px;
+    border-radius: 50%;
+    border: 5px solid #327ccb;
+    border-color: #327ccb transparent #327ccb transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+  }
+  
+  @keyframes lds-dual-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }

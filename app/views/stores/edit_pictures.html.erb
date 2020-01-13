@@ -1,22 +1,47 @@
-<h1>相簿編輯測試頁</h1>
-  
+<h2 class="title" >相簿內容編輯</h2>
+</br>
+
+<article class="message is-warning">
+  <div class="message-body">   
+      <strong>提醒:&nbsp;</strong>
+      <div id="upload_message"></div>
+  </div>
+</article>
+
 </br>
 <div data-controller="store-images-direct-upload"
-     data-uploads-direct-upload-url="/update_store_pictures/<%= @store.id %>"
-     id="store_images_preview_region">
-
-    <input type="file" name="store_images" multiple="true" data-action="change->store-images-direct-upload#start" direct_upload="true" id="store_images_input">
+     data-uploads-direct-upload-url= <%= rails_direct_uploads_path %>
+     info-store-id = <%= @store.id %>
+     id="update_info_div">
+    <div class="file">
+    <label class="file-label">    
+    <input type="file" class="file-input" name="store_images" multiple="true" data-action="change->store-images-direct-upload#start" direct_upload="true" id="store_images_input">
+    <span class="file-cta">
+        <span class="file-label">
+        選擇待上傳檔案
+        </span>
+    </span>
+    </label>
+    </div>
 
     </br>
-    <% if current_user.store.store_images.attached? %>
-        <p>已上傳圖片之列表</p>
-        <% @store.store_images.each do |store_image| %>
-            <%= image_tag store_image.variant(resize: '250x250') %>
-            <%= link_to '刪除', delete_store_picture_path(store_id:@store.id, id:store_image.id), method: :get %>
-        <% end %>   
-    <% else %>
-        <p>目前尚無圖片上傳</p>        
-    <% end %>    
+    <span class="tag is-large is-warning">
+    <h6 class="title is-6">已上傳圖片清單</h6>
+    </span>
+    <div class="ribbon-table-line">
+    </div>
+    </br>
+
+        <div id="store_images_preview_region">
+            <% @store.store_images.each do |store_image| %>  
+                <div class="img-wrapper">       
+                <%= image_tag store_image.variant(resize: '200x200') %>
+                <%= link_to '刪除', delete_store_picture_path(store_id:@store.id, id:store_image.id), data:{action:"click->store-images-direct-upload#destroy"}%>       
+                </div>
+            <% end %>   
+        </div>   
+      
+
 </div>
 
 
