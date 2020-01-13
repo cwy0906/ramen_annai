@@ -1,5 +1,4 @@
 $(function(){
-    console.log("i am here!");
     $("#avatar_input").on("change", function(e){
       const file = this.files[0];
       const fr = new FileReader();    
