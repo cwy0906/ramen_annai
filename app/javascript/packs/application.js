@@ -17,7 +17,3 @@ require("channels")
 
 import "controllers"
 
-import $ from 'jquery'
-window.jQuery = $
-window.$ = $
-
