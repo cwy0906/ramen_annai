@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   get "/show_gmap",                     to: "store_sub_pages#show_gmap"
   get "/show_menu/:store_id",           to: "store_sub_pages#show_menu"
-  get "/show_album",                    to: "store_sub_pages#show_album"
+  get "/show_album/:store_id",          to: "store_sub_pages#show_album"
 
   get "/stores/:id",                    to: "pages#show_store",                  as: "show_store_page"
   get "/stores_error_show",             to: "pages#error_show"
@@ -33,9 +33,8 @@ Rails.application.routes.draw do
   get "/edit_menu/:store_id",           to: "pages#edit_menu",               as: "edit_menu"
   get "/update_menu/:store_id",         to: "pages#update_menu",               as: "update_menu"
 
-  get "/edit_store_pictures/:store_id",                     to: "stores#edit_pictures",        as: "edit_store_pictures"
+  get  "/edit_store_pictures/:store_id",                     to: "stores#edit_pictures",        as: "edit_store_pictures"
   post "/update_store_pictures/:store_id",                   to: "stores#update_pictures",      as: "update_store_pictures"
   get  "/delete_store_picture/:store_id/store_picture/:id",  to: "stores#delete_picture",       as: "delete_store_picture"
-
-
+  post "/find_store_picture_url/:store_id/:id",                        to: "stores#find_picture_url"            
 end

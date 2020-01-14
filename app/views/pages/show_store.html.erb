@@ -83,7 +83,7 @@
       data-substore-content-loader-map-url      ="/show_gmap?address=<%= @store.address %>"
       data-substore-content-loader-comments-url ="/comments/store_list/<%= @store.id %>"
       data-substore-content-loader-menu-url ="/show_menu/<%= @store.id %>"
-      data-substore-content-loader-album-url ="/show_album" >
+   data-substore-content-loader-album-url    ="/show_album/<%= @store.id %>" >
 
     <footer class="card-footer">
       <a data-action="click->substore-content-loader#showComments" id="comments_trigger" class="card-footer-item">評價</a>
@@ -103,3 +103,24 @@
 
 <div id="mapLat" class="is-hidden" ><%= @latitude  %></div>
 <div id="mapLng" class="is-hidden" ><%= @longitude %></div>
+
+
+<script>
+$(function(){
+  $(".sub_page_output").on("mouseover", ".image_hide", function () {
+    image_id    = $(this).attr("image_id");
+    store_id    = $("#store_id").val();
+    request_url = "/find_store_picture_url/"+store_id+"/"+image_id;
+    
+    $.ajax({
+         type: "POST",
+          url: request_url,
+     dataType: "json",
+      success: function(data){
+        $("#focus_image").attr("src",data.image_url);  
+      }  
+    })
+  });
+  
+});
+</script>

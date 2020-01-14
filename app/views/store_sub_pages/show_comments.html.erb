@@ -6,6 +6,7 @@
     <% @comments.each do |comment|%>
         <div class="card">
             <div class="card-content">
+                <div class="comment-head">                
                 <div class="media">
                 <div class="media-left">
                     <%= avatar(comment.user, size:60)%>
@@ -14,6 +15,8 @@
                     <p class="title is-4"><%=comment.user.username %>&nbsp;comment on&nbsp;<%=comment.store.title%></p>
                     <p class="subtitle">評價分數:&nbsp;<%=comment.score %>&nbsp;訪問次數:&nbsp;<%=comment.visit_count %>&nbsp;消費金額:&nbsp;<%=comment.spend %></p>
                 </div>
+                </div>
+                </br>
                 </div>
 
                 評論內容:

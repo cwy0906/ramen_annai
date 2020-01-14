@@ -61,7 +61,7 @@ class StoresController < ApplicationController
               format.html { redirect_to update_store_pictures_path(store_id:@store.id) }
               format.json { render json: @store.errors, status: :unprocessable_entity }
             end
-          end        
+        end        
     end   
     
     def delete_picture
@@ -71,7 +71,17 @@ class StoresController < ApplicationController
         # @store.store_images.find_by(id:image_id).purge
         ActiveStorage::Attachment.find(image_id).purge
         render json: { status: :ok }                  
-    end    
+    end 
+    
+    def find_picture_url
+        respond_to do |format|
+        image_id  = params[:id]
+        store_id  = params[:store_id]
+        image     = Store.find(store_id).store_images.find(image_id)       
+        image_url = rails_blob_url(image)
+        format.json { render json: {image_url: image_url, status: :ok} }
+        end          
+    end 
 
     private
     def store_params

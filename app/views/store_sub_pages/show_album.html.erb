@@ -1,5 +1,53 @@
+
+
 <p>
 <div class="map_border">
     <div class="title">店家相簿列表頁面</div>
 </div>
 </p>
+
+</br>
+
+<% if @store_images_exist %>
+
+<input type="text" id="image_count" class="is-hidden" value=<%= @image_count %> >
+<input type="text" id="store_id"    class="is-hidden" value=<%= @store_id %> >
+
+
+<div class="focus_screen columns is-mobile">
+    
+    <div class="pre_link_region column">
+        <div class="pre_link_img">
+        <%=link_to  image_tag("arrow_left.png"), "" %>
+        </div>
+    </div>
+
+    <div class="focus_image_region">
+    <figure>
+        <%= image_tag( @store_images.first.variant(resize: "600x500"), id:"focus_image") %>
+    </figure>
+    </div>
+
+    <div class="next_link_region column">
+        <div class="next_link_img">
+        <%=link_to  image_tag("arrow_right.png"), "" %>
+        </div>
+    </div>
+
+
+</div>
+
+<ul class="columns is-multiline image_hide_list" >
+    <% @store_images.each do | store_image |%>
+        <li class="column">
+            <%= image_tag(store_image.variant(resize: "200x200"), class:"image_hide", image_id:store_image.id) %>
+        </li>
+    <% end %>
+</ul>
+
+<% else %>
+    <div class="focus_image_region">
+        <p class="subtitle">目前無相簿圖片資料</p>
+    </div>
+<% end %>
+
