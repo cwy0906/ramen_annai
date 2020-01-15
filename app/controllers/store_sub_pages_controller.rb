@@ -42,7 +42,6 @@ class StoreSubPagesController < ApplicationController
         store        = Store.find_by(id:store_id)        
         if store.store_images.present? 
             @store_images_exist = true
-            @image_count        = store.store_images.size
             @store_id           = store.id
             @store_images       = store.store_images
         else

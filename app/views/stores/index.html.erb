@@ -89,14 +89,32 @@
 <div id="mapLng" class="is-hidden" ><%= @longitude %></div>
 
 
-
 <script>
 $(function(){
-  $(".sub_page_output").on("mouseover", ".image_hide", function () {
-    image_id    = $(this).attr("image_id");
-    store_id    = $("#store_id").val();
-    request_url = "/find_store_picture_url/"+store_id+"/"+image_id;
-    
+
+  $(".sub_page_output").on("mouseover", ".image_hide", function() {    
+    first_image_id  = $("#first_image_id").val();
+    last_image_id   = $("#last_image_id").val();
+    image_id        = $(this).attr("image_id");
+    image_frame     = $(this).parent(".image_hihe_frame");
+    store_id        = $("#store_id").val();
+    request_url     = "/find_store_picture_url/"+store_id+"/"+image_id;
+
+    if(image_id == first_image_id){
+      pre_image_id  = last_image_id;
+      next_image_id = $(this).parents(".column").next(".column").find(".image_hide").attr("image_id");    
+    }else if(image_id == last_image_id){
+      pre_image_id  = $(this).parents(".column").prev(".column").find(".image_hide").attr("image_id");
+      next_image_id = first_image_id;
+    }else{
+      pre_image_id  = $(this).parents(".column").prev(".column").find(".image_hide").attr("image_id");
+      next_image_id = $(this).parents(".column").next(".column").find(".image_hide").attr("image_id");
+    }
+
+    $("#pre_link_button").attr("pre_link_img_id", pre_image_id);
+    $("#next_link_button").attr("next_link_img_id", next_image_id);
+    drawFrameBorder(image_frame);
+
     $.ajax({
          type: "POST",
           url: request_url,
@@ -106,9 +124,30 @@ $(function(){
       }  
     })
   });
-  
+
+
+  $(".sub_page_output").on("click", "#pre_link_button", function() {
+    target_id  = $(this).attr("pre_link_img_id");
+    select_str = ".image_hide[image_id='"+target_id+"']"
+    $(select_str).mouseover();
+
+  })
+
+  $(".sub_page_output").on("click", "#next_link_button", function() {
+    target_id = $(this).attr("next_link_img_id");
+    select_str = ".image_hide[image_id='"+target_id+"']"
+    $(select_str).mouseover();
+  })
+
+
+  function drawFrameBorder(image_frame) {
+    $(".image_hihe_frame").attr("class", "image_hihe_frame fade_img_unchose");
+    image_frame.attr("class", "image_hihe_frame frame_chose fade_img_chose");
+  }
+
 });
 </script>
+
 
 
 

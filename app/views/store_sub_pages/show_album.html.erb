@@ -1,5 +1,4 @@
 
-
 <p>
 <div class="map_border">
     <div class="title">店家相簿列表頁面</div>
@@ -10,7 +9,8 @@
 
 <% if @store_images_exist %>
 
-<input type="text" id="image_count" class="is-hidden" value=<%= @image_count %> >
+<input type="text" id="first_image_id" class="is-hidden" value=<%= @store_images.first.id %> >
+<input type="text" id="last_image_id" class="is-hidden" value=<%= @store_images.last.id %> >
 <input type="text" id="store_id"    class="is-hidden" value=<%= @store_id %> >
 
 
@@ -18,7 +18,9 @@
     
     <div class="pre_link_region column">
         <div class="pre_link_img">
-        <%=link_to  image_tag("arrow_left.png"), "" %>
+        <%= link_to "javascript:void(0)", id:"pre_link_button", pre_link_img_id:@store_images.last.id do%>
+            <%= image_tag("arrow_left.png")  %>
+        <% end %>
         </div>
     </div>
 
@@ -30,7 +32,9 @@
 
     <div class="next_link_region column">
         <div class="next_link_img">
-        <%=link_to  image_tag("arrow_right.png"), "" %>
+        <%= link_to "javascript:void(0)", id:"next_link_button", next_link_img_id:@store_images.second.id do%>
+            <%= image_tag("arrow_right.png")  %>
+        <% end %>
         </div>
     </div>
 
@@ -40,7 +44,13 @@
 <ul class="columns is-multiline image_hide_list" >
     <% @store_images.each do | store_image |%>
         <li class="column">
-            <%= image_tag(store_image.variant(resize: "200x200"), class:"image_hide", image_id:store_image.id) %>
+            <% if store_image == @store_images.first %>
+                <div class="image_hihe_frame frame_chose fade_img_chose" >
+            <% else %>
+                <div class="image_hihe_frame" >
+            <% end %>
+                <%= image_tag(store_image.variant(resize: "200x200"), class:"image_hide", image_id:store_image.id) %>
+            </div>
         </li>
     <% end %>
 </ul>

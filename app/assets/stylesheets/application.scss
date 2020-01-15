@@ -121,13 +121,19 @@
     margin-left:1px;
 }
 
+.fade_img_chose {
+    opacity: 0.5;
+}
+
+.fade_img_unchose {
+    opacity: 1.0;
+}
+
+.frame_chose {
+    border:2px 	#ffcb00 solid;
+}
+
 .sub_page_output {
     background:#edeada;
 }
 
-.image_hide{
-    opacit:1.0;
-}
-.image_hide:hover{
-    opacity:0.5;
-}
