@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_16_124553) do
+ActiveRecord::Schema.define(version: 2020_01_18_121739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,15 @@ ActiveRecord::Schema.define(version: 2020_01_16_124553) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["store_id"], name: "index_comments_on_store_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "menus", force: :cascade do |t|
+    t.bigint "store_id", null: false
+    t.string "item_name", null: false
+    t.integer "item_price", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["store_id"], name: "index_menus_on_store_id"
   end
 
   create_table "stores", force: :cascade do |t|
@@ -90,5 +99,6 @@ ActiveRecord::Schema.define(version: 2020_01_16_124553) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "stores"
   add_foreign_key "comments", "users"
+  add_foreign_key "menus", "stores"
   add_foreign_key "stores", "users"
 end

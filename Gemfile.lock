@@ -73,6 +73,7 @@ GEM
       regexp_parser (~> 1.5)
       xpath (~> 3.2)
     childprocess (3.0.0)
+    cocoon (1.2.14)
     concurrent-ruby (1.1.5)
     crass (1.0.6)
     devise (4.7.1)
@@ -224,6 +225,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
   capybara (>= 2.15)
+  cocoon (~> 1.2, >= 1.2.14)
   devise (~> 4.7, >= 4.7.1)
   geocoder (~> 1.6)
   gmaps4rails (~> 2.1, >= 2.1.2)

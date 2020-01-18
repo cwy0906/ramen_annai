@@ -1,0 +1,19 @@
+
+<div class='nested-fields'>
+    <div class="field columns is-mobile">  
+        <div class="control column menu-box">
+            <%= f.text_field :item_name, class:"input" %>
+        </div>
+
+        <div class="control column menu-box">
+            <%= f.number_field :item_price, class:"input" %>
+        </div>
+
+        <div class="control column">
+            <button class="button is-danger is-outlined">
+            <%= link_to_remove_association "移除條目", f %>
+            </button>
+        </div>
+    </div>
+</div>
+

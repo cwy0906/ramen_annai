@@ -37,6 +37,9 @@ gem 'devise', '~> 4.7', '>= 4.7.1'
 gem 'gmaps4rails', '~> 2.1', '>= 2.1.2'
 gem 'geocoder', '~> 1.6'
 
+# cocoon
+gem 'cocoon', '~> 1.2', '>= 1.2.14'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

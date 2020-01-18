@@ -19,19 +19,9 @@ class StoreSubPagesController < ApplicationController
 
     def show_menu
         store_id = params["store_id"]
-        if Menu.find_by(store_id:store_id ).present?
-            menuArray    = Menu.find_by(store_id:store_id).content.split("?")
+        if Menu.where(store_id:store_id ).present?
             @menu_exist = true
-            @dish_01     = menuArray[0]
-            @dish_02     = menuArray[2]
-            @dish_03     = menuArray[4]
-            @dish_04     = menuArray[6]
-            @dish_05     = menuArray[8]
-            @price_01    = menuArray[1]
-            @price_02    = menuArray[3]
-            @price_03    = menuArray[5]
-            @price_04    = menuArray[7]
-            @price_05    = menuArray[9]
+            @menus      = Menu.where(store_id:store_id )
         else
             @menu_exist = false
         end 

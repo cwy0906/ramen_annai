@@ -9,7 +9,9 @@ class Store < ApplicationRecord
   validates  :budget, presence: true
   validates  :feature, presence: true
   has_many :comments
-  has_one  :menu
+  has_many :menus, inverse_of: :store, dependent: :destroy
+  accepts_nested_attributes_for :menus, reject_if: :all_blank, allow_destroy: true
   has_many_attached :store_images
+
 end
 

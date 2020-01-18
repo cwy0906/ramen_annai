@@ -26,12 +26,12 @@ Rails.application.routes.draw do
     get "update/:id"        => :update_comment,    :as => "update"
     get "user_list"         => :user_list_comments,:as => "by_user_list"
   end
-  get "/comments/store_list/:store_id", to: "store_sub_pages#show_comments", as: "comment_by_store_list"
+  get "/comments/store_list/:store_id",  to: "store_sub_pages#show_comments", as: "comment_by_store_list"
 
-  get "/search_stores",                 to: "pages#search_stores",           as: "search_stores"  
+  get "/search_stores",                  to: "pages#search_stores",           as: "search_stores"  
 
-  get "/edit_menu/:store_id",           to: "pages#edit_menu",               as: "edit_menu"
-  get "/update_menu/:store_id",         to: "pages#update_menu",               as: "update_menu"
+  get "/edit_menus/:store_id",           to: "pages#edit_menus",              as: "edit_menus"
+  get "/update_menus/:store_id",         to: "pages#update_menus",            as: "update_menus"
 
   get  "/edit_store_pictures/:store_id",                     to: "stores#edit_pictures",        as: "edit_store_pictures"
   post "/update_store_pictures/:store_id",                   to: "stores#update_pictures",      as: "update_store_pictures"
