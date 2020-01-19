@@ -21,4 +21,5 @@ import $ from 'jquery'
 window.jQuery = $
 window.$ = $
 
+import '../libs/datepicker'
 
