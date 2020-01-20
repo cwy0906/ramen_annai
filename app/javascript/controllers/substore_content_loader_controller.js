@@ -1,5 +1,9 @@
 import { Controller } from "stimulus"
 export default class extends Controller {
+
+    initialize()  {
+      this.showComments();  
+    }
     
     showMap() {
         fetch(this.data.get("map-url"))   

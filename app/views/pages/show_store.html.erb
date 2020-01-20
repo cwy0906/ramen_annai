@@ -35,7 +35,7 @@
         <%= @store.avg_score %>
         </p>
         <p class="subtitle is-6">
-        <%= @store.address %>        
+        <%= @store.city %><%= @store.district %><%= @store.address %>       
         </p>
       </div>
 
@@ -80,7 +80,7 @@
   </div>
 
   <div data-controller = "substore-content-loader"
-      data-substore-content-loader-map-url      ="/show_gmap?address=<%= @store.address %>"
+      data-substore-content-loader-map-url      ="/show_gmap?full_address=<%= @store.city %><%= @store.district %><%= @store.address %>"
       data-substore-content-loader-comments-url ="/comments/store_list/<%= @store.id %>"
       data-substore-content-loader-menu-url ="/show_menu/<%= @store.id %>"
    data-substore-content-loader-album-url    ="/show_album/<%= @store.id %>" >
@@ -154,7 +154,6 @@ $(function(){
     select_str = ".image_hide[image_id='"+target_id+"']"
     $(select_str).mouseover();
   })
-
 
   function drawFrameBorder(image_frame) {
     $(".image_hihe_frame").attr("class", "image_hihe_frame fade_img_unchose");

@@ -24,20 +24,21 @@
     </div>
     <div class="field">
         <%= form.label :city, "區域縣市*", class: "label" %>
-        <div class="control">
-            <%= form.text_field :city, class: "input" %>
+        <div class="select">	
+            <select id="store_city" type="text" name="store[city]" ></select>
         </div>
     </div>
     <div class="field">
         <%= form.label :district, "行政區*", class: "label" %>
-        <div class="control">
-            <%= form.text_field :district, class: "input" %>
+        <div class="select">	
+            <select id="store_district" type="text" name="store[district]" ></select>
         </div>
     </div>
     <div class="field">
         <%= form.label :address, "詳細地址*", class: "label" %>
-        <div class="control">
-            <%= form.text_field :address, class: "input" %>
+        <div class="control columns is-gapless">
+            <%= text_field_tag("",store.city+store.district,{id:"address_patch", class:"input column is-one-quarter address_patch", readonly: true}) %>
+            <%= form.text_field :address, class: "input column" %>
         </div>
     </div>
     <div class="field">
@@ -70,7 +71,7 @@
     <div class="field">
         <%= form.label :budget, "用餐預算/每人*", class: "label" %>
         <div class="control">
-            <%= form.text_field :budget, class: "input" %>
+            <%= form.number_field :budget, class: "input", min: 1, max: 1000, step: 1 %>
         </div>
     </div>
 
@@ -112,3 +113,37 @@
     </div>
 
 <% end %>
+
+
+
+
+
+<script>
+
+$(function(){
+    def_city_str       = "<%= store.city %>";
+    def_district_str   = "<%= store.district %>";
+    AddressSeleclList.Initialize("store_city", "store_district", "請選擇城市", "", "請選擇鄉鎮區", "");
+    
+    if ( def_city_str != "" && def_district_str != "") {
+    var element = document.getElementById("store_city");
+    $('#store_city').val(def_city_str);
+    if ('fireEvent' in element)
+        element.fireEvent("onchange");
+    else {
+        var evt = document.createEvent("HTMLEvents");
+        evt.initEvent("change", false, true);
+        element.dispatchEvent(evt);
+    }
+    $('#store_district').val(def_district_str);
+    }
+
+    $("#store_city, #store_district").change(function(){
+        city_str     = $("#store_city").val();
+        district_str = $("#store_district").val();
+        $("#address_patch").val(city_str+district_str);
+    });
+       
+});
+
+</script>

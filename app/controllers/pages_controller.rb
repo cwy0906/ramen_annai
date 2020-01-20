@@ -89,7 +89,7 @@ class PagesController < ApplicationController
                                 (geo_keyword if !geo_keyword.empty? && feat_keyword.empty?) || 
                                 (feat_keyword if geo_keyword.empty? && !feat_keyword.empty?) ||
                                 (geo_keyword+"、"+feat_keyword)
-            @stores = Store.where("address LIKE ?",geo_keyword_fix).where("title LIKE ? OR  feature LIKE ?",feat_keyword_fix,feat_keyword_fix).where(filter_depiction).order(order_keyword.to_sym => :desc).distinct
+            @stores = Store.where("address LIKE ? OR city LIKE ? OR district LIKE ?", geo_keyword_fix, geo_keyword_fix, geo_keyword_fix,).where("title LIKE ? OR  feature LIKE ?",feat_keyword_fix,feat_keyword_fix).where(filter_depiction).order(order_keyword.to_sym => :desc).distinct
             flash[:notice] = "查詢關鍵字為: " +condition_keyword+", 共回傳了"+@stores.count.to_s+"個結果"
             @geo_kw_temp    = geo_keyword
             @feat_kw_temp   = feat_keyword

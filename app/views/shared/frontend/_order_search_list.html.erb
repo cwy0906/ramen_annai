@@ -63,7 +63,7 @@
                 <%= avatar(store.user, size:80)%>
             </div>
             <div class="media-content">
-              <p class="subtitle is-6">地址:&nbsp;<%=store.address %></p>
+              <p class="subtitle is-6">地址:&nbsp;<%= store.city %><%= store.district %><%= store.address %></p>
               <p class="subtitle is-6">平均分數:&nbsp;<%=store.avg_score %></p>
               <p class="subtitle is-6">被評論數:&nbsp;<%=store.comments_count %></p>
               <p class="subtitle is-6">預算:&nbsp;<%=store.budget %></p>
