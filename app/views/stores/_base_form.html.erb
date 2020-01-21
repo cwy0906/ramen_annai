@@ -37,8 +37,10 @@
     <div class="field">
         <%= form.label :address, "詳細地址*", class: "label" %>
         <div class="control columns is-gapless">
-            <%= text_field_tag("",store.city+store.district,{id:"address_patch", class:"input column is-one-quarter address_patch", readonly: true}) %>
-            <%= form.text_field :address, class: "input column" %>
+            <% if store.district.present? then address_patch = store.city+store.district else address_patch = "" end %>
+            <%= text_field_tag("",  address_patch,{id:"address_patch", class:"input column is-one-quarter address_patch", readonly: true}) %>       
+            <%= form.text_field :address, class: "input column", id:"store_address" %> 
+            <button type="button" class="button is-warning" id="map_info_entry">查看地圖位置</button>         
         </div>
     </div>
     <div class="field">
@@ -115,23 +117,38 @@
 <% end %>
 
 
+<div id="address_info_bg">
+    <div id="address_info_box">
+        <p>輸入地址與地圖對照</p>
+        <div id="address_info_gmap">
+        </div>
+        <div id="address_info_content">            
+            <button type="button" id="address_info_cancel_btn"  class="button is-light" >重新填寫</button>
+            <button type="button" id="address_info_confirm_btn" class="button is-warning" >確認</button>
+        </div>
+    </div>
+
+</div>
+
 
 
 
 <script>
 
 $(function(){
+
+    //地址縣市行政區輸入連動相關
     def_city_str       = "<%= store.city %>";
     def_district_str   = "<%= store.district %>";
     AddressSeleclList.Initialize("store_city", "store_district", "請選擇城市", "", "請選擇鄉鎮區", "");
     
     if ( def_city_str != "" && def_district_str != "") {
-    var element = document.getElementById("store_city");
+    let element = document.getElementById("store_city");
     $('#store_city').val(def_city_str);
     if ('fireEvent' in element)
         element.fireEvent("onchange");
     else {
-        var evt = document.createEvent("HTMLEvents");
+        let evt = document.createEvent("HTMLEvents");
         evt.initEvent("change", false, true);
         element.dispatchEvent(evt);
     }
@@ -139,11 +156,50 @@ $(function(){
     }
 
     $("#store_city, #store_district").change(function(){
-        city_str     = $("#store_city").val();
-        district_str = $("#store_district").val();
+        let city_str     = $("#store_city").val();
+        let district_str = $("#store_district").val();
         $("#address_patch").val(city_str+district_str);
     });
-       
+
+
+    // 地圖地址確認小視窗功能相關
+    $("#map_info_entry").click(function(){
+        $("#address_info_bg").fadeIn(300);
+        let full_address = $("#store_city").val()+$("#store_district").val()+$("#store_address").val();
+        let map_info_url = "/show_gmap?full_address="+full_address;
+
+        fetch(map_info_url)   
+        .then(response => response.text())
+        .then(html => {        
+            document.getElementById("address_info_gmap").innerHTML = html          
+            let mapLat = document.getElementById("mapLat").innerHTML
+            let mapLng = document.getElementById("mapLng").innerHTML
+            initMap(mapLat , mapLng )
+            
+            function initMap(lat, lng) {   
+              var myCoords = new google.maps.LatLng(lat, lng);
+              var mapOptions = {
+              center: myCoords,
+              zoom: 14
+              }; 
+              var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+              var marker = new google.maps.Marker({
+              position: myCoords,
+              map: map
+              });
+            }
+        });    
+    }); 
+
+    $("#address_info_cancel_btn").click(function(){
+        $("#address_info_bg").fadeOut(300);
+        $("#store_address").val("");
+
+    });
+
+    $("#address_info_confirm_btn").click(function(){
+        $("#address_info_bg").fadeOut(300);
+    });  
 });
 
 </script>

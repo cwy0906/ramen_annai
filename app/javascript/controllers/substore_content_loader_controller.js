@@ -12,9 +12,9 @@ export default class extends Controller {
             document.getElementById("output").innerHTML = html          
             let mapLat = document.getElementById("mapLat").innerHTML
             let mapLng = document.getElementById("mapLng").innerHTML
-            this.triggerClassNameReset()
+            this.triggerClassNameReset();
             document.getElementById("gmap_trigger").className = "card-footer-item card-footer-item-chose"
-            initMap(mapLat , mapLng )
+            initMap(mapLat , mapLng );
             
             function initMap(lat, lng) {   
               var myCoords = new google.maps.LatLng(lat, lng);
@@ -29,7 +29,7 @@ export default class extends Controller {
               });
             }
 
-        })    
+        });    
     }
 
     showComments() {

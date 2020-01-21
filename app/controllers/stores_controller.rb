@@ -55,7 +55,7 @@ class StoresController < ApplicationController
                 image = ActiveStorage::Blob.find_signed(update_store_pictures_params[:store_images].first)
                 # 從後端取的圖片（resize）的網址
                 image_url = Rails.application.routes.url_helpers.rails_representation_url(image.variant(resize: "200x200"), only_path: true)
-                render json: { status: :ok, url: image_url, id: image.id }
+                render json: { status: :ok, url: image_url, id: image.id, file_name: image.filename, file_size: image.byte_size }
               }
             else
               format.html { redirect_to update_store_pictures_path(store_id:@store.id) }

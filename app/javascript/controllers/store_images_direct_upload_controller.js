@@ -54,7 +54,7 @@ export default class extends Controller {
                     </a>
                   `);
                 };
-                $("#upload_message").html("上傳圖片成功")
+                $("#upload_message").html("上傳圖片成功, 檔案名稱: "+data.file_name+", 檔案大小: "+data.file_size+ " byte")
               });
             });
         });

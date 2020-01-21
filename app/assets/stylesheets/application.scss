@@ -137,10 +137,31 @@
     background:#edeada;
 }
 
-.menu-box{
+.menu-box {
     background-color: #FFEE99;
 }
 
-.address_patch{
+.address_patch {
     background-color: #edeada;
+}
+
+#address_info_bg {
+    position:fixed;
+    left      :0;
+    top       :0;
+    height    :100%;
+    width     :100%;
+    background:#616153;
+    display   :none;
+}
+
+#address_info_box {
+    margin        :200px auto 0;
+    text-align    :center;
+    padding-top   :25px;
+    width         :800px;
+    height        :700px;
+    background    :#FFF;
+    border-radius :3px;
+    box-shadow    :2px 2px #000003;
 }
