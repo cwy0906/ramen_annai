@@ -1,5 +1,5 @@
 class StoresController < ApplicationController
-    before_action :authenticate_user! 
+    before_action :authenticate_user!, except: [:show] 
 
     def new
         @store  = current_user.build_store
@@ -33,6 +33,19 @@ class StoresController < ApplicationController
             user_session["form_error_message"] = blank_params_check(@store.errors.messages)                          
             render :edit
         end            
+    end
+    
+    def show
+        p "-----------------"
+        p params
+        p "-----------------"
+        if Store.find_by(id: params[:id])
+            @store     = Store.find_by(id: params[:id]) 
+            @latitude  = Geocoder.search(@store.address).first.coordinates[0].to_s
+            @longitude = Geocoder.search(@store.address).first.coordinates[1].to_s
+        else
+            redirect_to "/stores_error_show"
+        end 
     end    
 
     def index
@@ -40,58 +53,12 @@ class StoresController < ApplicationController
         @latitude  = Geocoder.search(current_user.store.address).first.coordinates[0].to_s
         @longitude = Geocoder.search(current_user.store.address).first.coordinates[1].to_s
     end
-   
-    def edit_pictures
-        @store     = current_user.store
-    end
-    
-    def update_pictures  
-        respond_to do |format|
-            @store = current_user.store
-            if @store.store_images.attach(update_store_pictures_params[:store_images])
-              format.html { redirect_to update_store_pictures_path(store_id:@store.id) }
-              format.json {
-                # 遵循慣例參數為陣列，但 DirectUpload 一次只會負責一張圖片
-                image = ActiveStorage::Blob.find_signed(update_store_pictures_params[:store_images].first)
-                # 從後端取的圖片（resize）的網址
-                image_url = Rails.application.routes.url_helpers.rails_representation_url(image.variant(resize: "200x200"), only_path: true)
-                render json: { status: :ok, url: image_url, id: image.id, file_name: image.filename, file_size: image.byte_size }
-              }
-            else
-              format.html { redirect_to update_store_pictures_path(store_id:@store.id) }
-              format.json { render json: @store.errors, status: :unprocessable_entity }
-            end
-        end        
-    end   
-    
-    def delete_picture
-        image_id = params[:id].to_i
-        @store = current_user.store
-        # 有時有無法刪除的問題    
-        # @store.store_images.find_by(id:image_id).purge
-        ActiveStorage::Attachment.find(image_id).purge
-        render json: { status: :ok }                  
-    end 
-    
-    def find_picture_url
-        respond_to do |format|
-        image_id  = params[:id]
-        store_id  = params[:store_id]
-        image     = Store.find(store_id).store_images.find(image_id)       
-        image_url = rails_blob_url(image)
-        format.json { render json: {image_url: image_url, status: :ok} }
-        end          
-    end 
-
+        
     private
     def store_params
         params.require(:store).permit(:user_id, :tiltle, :city, :district, :title,
                                       :address, :tel, :promote, :intro, :feature,
                                       :opening_hours, :closed_day, :budget, :memo)    
-    end    
-
-    def update_store_pictures_params
-        params.require(:store).permit( store_images: [])
     end    
 
     def blank_params_check(message_hash)    

@@ -45,7 +45,7 @@
 <p>&nbsp;列出&nbsp;<%=@stores.count%>&nbsp;項結果</p>
 <% @stores.each do |store|%>
     </br>
-    <%= link_to show_store_page_path(store.id) do %>
+    <%= link_to store_path(store.id) do %>
     <div class="card">
         <header class="card-header">
 

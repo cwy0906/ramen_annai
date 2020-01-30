@@ -64,10 +64,10 @@
   </div>
 
   <div data-controller = "substore-content-loader"
-       data-substore-content-loader-map-url      ="/show_gmap?full_address=<%= @store.city %><%= @store.district %><%= @store.address %>"
-       data-substore-content-loader-comments-url ="/comments/store_list/<%= @store.id %>"
-       data-substore-content-loader-menu-url     ="/show_menu/<%= @store.id %>"
-       data-substore-content-loader-album-url    ="/show_album/<%= @store.id %>" >
+       data-substore-content-loader-map-url      ="/stores/<%= @store.id %>/store_sub_pages/show_gmap?full_address=<%= @store.city %><%= @store.district %><%= @store.address %>"
+       data-substore-content-loader-comments-url ="/stores/<%= @store.id %>/store_sub_pages/show_comments"
+       data-substore-content-loader-menu-url     ="/stores/<%= @store.id %>/store_sub_pages/show_menu"
+       data-substore-content-loader-album-url    ="/stores/<%= @store.id %>/store_sub_pages/show_album" >
 
     <footer class="card-footer">
       <a data-action="click->substore-content-loader#showComments" id="comments_trigger" class="card-footer-item">評價</a>
@@ -98,8 +98,8 @@ $(function(){
     image_id        = $(this).attr("image_id");
     image_frame     = $(this).parent(".image_hihe_frame");
     store_id        = $("#store_id").val();
-    request_url     = "/find_store_picture_url/"+store_id+"/"+image_id;
-
+    request_url     = "/stores/"+store_id+"/store_pictures/"+image_id;
+    
     if(image_id == first_image_id){
       pre_image_id  = last_image_id;
       next_image_id = $(this).parents(".column").next(".column").find(".image_hide").attr("image_id");    
@@ -116,7 +116,7 @@ $(function(){
     drawFrameBorder(image_frame);
 
     $.ajax({
-         type: "POST",
+         type: "GET",
           url: request_url,
      dataType: "json",
       success: function(data){

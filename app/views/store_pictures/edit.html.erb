@@ -36,7 +36,7 @@
             <% @store.store_images.each do |store_image| %>  
                 <div class="img-wrapper">       
                 <%= image_tag store_image.variant(resize: '200x200') %>
-                <%= link_to '刪除', delete_store_picture_path(store_id:@store.id, id:store_image.id), data:{action:"click->store-images-direct-upload#destroy"}%>       
+                <%= link_to '刪除', store_store_picture_path(@store.id, store_image.id), data:{action:"click->store-images-direct-upload#destroy"} %>       
                 </div>
             <% end %>   
         </div>   

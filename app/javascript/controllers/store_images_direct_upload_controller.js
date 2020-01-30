@@ -22,7 +22,7 @@ export default class extends Controller {
           uploader.upload()
             .then(blob => {
               // 更新資料庫
-              fetch(`/update_store_pictures/${store_id}.json`, {
+              fetch(`/stores/${store_id}/store_pictures.json`, {
                 headers: {
                   'X-CSRF-Token': meta_csrf,
                   'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ export default class extends Controller {
                   wrapper.innerHTML = '';
                   wrapper.appendChild(img);
                   wrapper.insertAdjacentHTML('beforeend', `
-                    <a href="/delete_store_picture/${store_id}/store_picture/${data.id}"
+                    <a href="/stores/${store_id}/store_pictures/${data.id}"
                       data-action="click->store-images-direct-upload#destroy">
                       刪除
                     </a>
@@ -72,7 +72,7 @@ export default class extends Controller {
             'Content-Type': 'application/json',
             'X-Requested-With': 'XMLHttpRequest'
           },
-          method: 'GET',
+          method: 'DELETE',
           credentials: 'same-origin'          
         })
         .then(res => res.json())

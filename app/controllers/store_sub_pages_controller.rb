@@ -7,7 +7,7 @@ class StoreSubPagesController < ApplicationController
     end    
         
     def show_comments
-        store_id  = params["store_id"]
+        store_id  = params[:store_id]
         store     = Store.find_by(id:store_id)
         if store.comments.present? 
             @comments_exist = true
@@ -18,7 +18,7 @@ class StoreSubPagesController < ApplicationController
     end    
 
     def show_menu
-        store_id = params["store_id"]
+        store_id = params[:store_id]
         if Menu.where(store_id:store_id ).present?
             @menu_exist = true
             @menus      = Menu.where(store_id:store_id )
@@ -28,7 +28,7 @@ class StoreSubPagesController < ApplicationController
     end    
 
     def show_album
-        store_id     = params["store_id"]
+        store_id     = params[:store_id]
         store        = Store.find_by(id:store_id)        
         if store.store_images.present? 
             @store_images_exist = true

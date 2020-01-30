@@ -2,7 +2,7 @@
 
 </br> 
 
-<%= form_for( @store, url: "/update_menus/#{current_user.store.id}", method: "get") do |f| %>
+<%= form_for( @store, url: "/stores/#{current_user.store.id}/menus", method: "put") do |f| %>
     <%= text_field_tag :menus_status, @menus_status, class:"input is-hidden" %>
 
     <div class="field columns is-vcentered"> 
