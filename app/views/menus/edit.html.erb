@@ -23,24 +23,35 @@
     </div>
 
     
-    <div id='menus'>
-        <%= f.fields_for :menus do |menu| %>
-            <%= render 'menu_fields', f: menu %>
-        <% end %>     
+    <div id= "menus" >
+        <div id= "menus_edit_list" data-behavior='sortable' >
+            <%= f.fields_for :menus do |menu| %>
+                <%= render 'menu_fields', f: menu %>
+            <% end %>
+        </div>
         <div class='links'>
             <p>
             </br>
-            <%= link_to_add_association "新增一組條目 「料理-價格」", f, :menus %> 
+            <%= link_to_add_association "新增一組條目 「料理-價格」", f, :menus, data:{"association-insertion-node" => ".nested-fields:last", "association-insertion-method" => "after"}, class:"button is-danger" %> 
             </p>
         </div>
     </div>
 
+
+
     </br>
     <%= link_to "取消", :back , class:"button is-light" %>
     <%= f.submit "提交資料", class:"button is-warning" %>
-
-    
-
-    
+ 
 <% end %>
 
+
+<script>
+
+$(function(){
+
+    $("[data-behavior='sortable']" ).sortable();
+
+});
+
+</script>
