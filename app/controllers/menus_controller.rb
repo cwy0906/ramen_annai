@@ -14,7 +14,7 @@ class MenusController < ApplicationController
         ActiveRecord::Base.transaction do
             edit_store = current_user.store 
             Menu.where(store_id:current_user.store.id).destroy_all
- 
+
             params[:store][:menus_attributes].each do |k,v|  
                 item_name    = v["item_name"]
                 item_price   = v["item_price"]
