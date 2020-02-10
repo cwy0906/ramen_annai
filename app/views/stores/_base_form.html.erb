@@ -127,7 +127,6 @@
             <button type="button" id="address_info_confirm_btn" class="button is-warning" >確認</button>
         </div>
     </div>
-
 </div>
 
 
@@ -166,7 +165,8 @@ $(function(){
     $("#map_info_entry").click(function(){
         $("#address_info_bg").fadeIn(300);
         let full_address = $("#store_city").val()+$("#store_district").val()+$("#store_address").val();
-        let map_info_url = "/show_gmap?full_address="+full_address;
+        let store_id     = "<%= store.id %>";
+        let map_info_url = "/stores/"+store_id+"/store_sub_pages/show_gmap?full_address="+full_address;
 
         fetch(map_info_url)   
         .then(response => response.text())
