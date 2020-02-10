@@ -39,9 +39,17 @@
         <div class="control columns is-gapless">
             <% if store.district.present? then address_patch = store.city+store.district else address_patch = "" end %>
             <%= text_field_tag("",  address_patch,{id:"address_patch", class:"input column is-one-quarter address_patch", readonly: true}) %>       
-            <%= form.text_field :address, class: "input column", id:"store_address" %> 
-            <button type="button" class="button is-warning" id="map_info_entry">查看地圖位置</button>         
+            <%= form.text_field :address, class: "input column", id:"store_address" %>          
         </div>
+        
+        <label class="label">輸入地址與地圖對照</label>
+        <div class="control columns is-gapless">
+            <div id="address_info_box">
+                <div id="address_info_gmap">
+                </div>
+            </div>
+        </div>    
+
     </div>
     <div class="field">
         <%= form.label :tel, "電話*", class: "label" %>
@@ -117,21 +125,6 @@
 <% end %>
 
 
-<div id="address_info_bg">
-    <div id="address_info_box">
-        <p>輸入地址與地圖對照</p>
-        <div id="address_info_gmap">
-        </div>
-        <div id="address_info_content">            
-            <button type="button" id="address_info_cancel_btn"  class="button is-light" >重新填寫</button>
-            <button type="button" id="address_info_confirm_btn" class="button is-warning" >確認</button>
-        </div>
-    </div>
-</div>
-
-
-
-
 <script>
 
 $(function(){
@@ -162,10 +155,19 @@ $(function(){
 
 
     // 地圖地址確認小視窗功能相關
-    $("#map_info_entry").click(function(){
-        $("#address_info_bg").fadeIn(300);
-        let full_address = $("#store_city").val()+$("#store_district").val()+$("#store_address").val();
-        let store_id     = "<%= store.id %>";
+    $("#store_address").on( "input propertychange", function(){
+
+        //  method:GET => new ,  method:PUT => edit  
+        let method = "<%= method %>";
+        if ( method == "PUT" ) {
+            var full_address = $("#store_city").val()+$("#store_district").val()+$("#store_address").val();
+            var store_id     = "<%= store.id %>";
+
+        }else if ( method == "GET" ) {
+            var full_address = $("#store_city").val()+$("#store_district").val()+$("#store_address").val();
+            var store_id     = "1";
+        }
+
         let map_info_url = "/stores/"+store_id+"/store_sub_pages/show_gmap?full_address="+full_address;
 
         fetch(map_info_url)   
@@ -191,15 +193,8 @@ $(function(){
         });    
     }); 
 
-    $("#address_info_cancel_btn").click(function(){
-        $("#address_info_bg").fadeOut(300);
-        $("#store_address").val("");
-
-    });
-
-    $("#address_info_confirm_btn").click(function(){
-        $("#address_info_bg").fadeOut(300);
-    });  
+    $("#store_address").trigger("propertychange");
+  
 });
 
 </script>

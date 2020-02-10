@@ -4,7 +4,7 @@ class StoresController < ApplicationController
     def new
         @store  = current_user.build_store
         @url    = user_stores_path(user_id:current_user.id)
-        @method = :post
+        @method = :GET
     end
     
     def create
@@ -36,9 +36,6 @@ class StoresController < ApplicationController
     end
     
     def show
-        p "-----------------"
-        p params
-        p "-----------------"
         if Store.find_by(id: params[:id])
             @store     = Store.find_by(id: params[:id]) 
             @latitude  = Geocoder.search(@store.address).first.coordinates[0].to_s

@@ -1,7 +1,11 @@
 class StoreSubPagesController < ApplicationController
    
     def show_gmap
-        @full_address    = params["full_address"]
+        if params["full_address"].present?
+            @full_address = params["full_address"]
+        else
+            @full_address = "  範例--台北市中正區重慶南路一段122號"
+        end        
         @latitude        = Geocoder.search(@full_address).first.coordinates[0].to_s
         @longitude       = Geocoder.search(@full_address).first.coordinates[1].to_s
     end    
