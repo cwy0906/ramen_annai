@@ -69,7 +69,8 @@
 }
 
 .card-title-dash{
-    border-left :6px 	#FFCC33 solid; 
+    padding-left:10px;
+    border-left :7px 	#FFCC33 solid; 
 }
 
 .preview_region{
@@ -145,3 +146,43 @@
     background-color: #edeada;
 }
 
+.search_list_avater {
+    width:  160px;
+    height: 160px;
+    border:2px 	#ccccc6 solid;
+    max-width:  100%;
+    display:  flex;
+    align-items: center;
+    justify-content:  center;
+}
+
+// star ranking
+.star-ratings-css {    
+    unicode-bidi: bidi-override;
+    color: #c5c5c5;
+    font-size: 25px;
+    height: 25px;
+    width: 125px;
+    margin-left: 0px;
+    margin-bottom: 15px;
+
+    position: relative;
+    padding: 0;
+    text-shadow: 0px 1px 0 #a2a2a2;
+    
+    &-top {
+      color: #e7711b;
+      padding: 0;
+      position: absolute;
+      z-index: 1;
+      display: block;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+    }
+    &-bottom {
+      padding: 0;
+      display: block;
+      z-index: 0;
+    }
+}

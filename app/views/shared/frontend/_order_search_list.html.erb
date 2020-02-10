@@ -48,26 +48,36 @@
     <%= link_to store_path(store.id) do %>
     <div class="card">
         <header class="card-header">
-
-        <div class="card-title-dash">
-        <span class="card-header-title">
-        <p class="title is-4"><%=store.title%></p>
-        <p class="title is-6">&nbsp;特色:&nbsp;<%=store.feature %></p>
-        </span>
-        </div>
-
+          <div class="card-title-dash">
+            <span class="card-header-title">
+                <div class="media-content">    
+                <p class="title is-4"><%= link_to store.title, store_path(store.id) %></p>
+                <p class="subtitle is-6"><%=store.feature %></p>
+                <p></p>
+                </div>
+            </span>
+          </div>
         </header>
+
         <div class="card-content">
             <div class="media">
             <div class="media-left">
-                <%= avatar(store.user, size:80)%>
+                <div class="search_list_avater">
+                  <%= avatar(store.user, size:150)%>
+                </div>
             </div>
+
             <div class="media-content">
-              <p class="subtitle is-6">地址:&nbsp;<%= store.city %><%= store.district %><%= store.address %></p>
-              <p class="subtitle is-6">平均分數:&nbsp;<%=store.avg_score %></p>
-              <p class="subtitle is-6">被評論數:&nbsp;<%=store.comments_count %></p>
-              <p class="subtitle is-6">預算:&nbsp;<%=store.budget %></p>
-              <p>簡介:<%=store.intro %></p>
+
+              <div class="star-ratings-css">
+              <div class="star-ratings-css-top" style="width:<%= store.avg_score*20.0 %>%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+              <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+              </div>
+
+              <p class="is-6">評分:&nbsp; <%= format("%.2f",store.avg_score) %>&nbsp;[<%=store.comments_count %>則評價]</p>
+              <p class="is-6">預算:&nbsp;約 NT$<%=store.budget %></p>
+              </br>
+              <p class="is-6">地址:&nbsp;<%= store.city %><%= store.district %><%= store.address %></p>
             </div>
               
             </div>
