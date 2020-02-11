@@ -35,8 +35,17 @@
     margin:0px auto;
 }
 
-.comment-head{
+.comment-head {
+}
+
+.comment-content {
     background:#edeada;
+}
+
+.comment_time {
+    text-align:right;
+    font-size:12px;  
+    font-weight:bolder;
 }
 
 .menu_border{
@@ -135,7 +144,7 @@
 }
 
 .sub_page_output {
-    background:#edeada;
+    background:#faf8f5;
 }
 
 .menu-box {
@@ -185,4 +194,68 @@
       display: block;
       z-index: 0;
     }
+}
+
+.store_card_title {
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+// card info format
+dl {
+    width: 100%;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+dt {
+    float: left;
+    width: 5%;
+    /* adjust the width; make sure the total of both is 100% */
+    padding: 0;
+    margin: 0;
+}
+  
+dd {
+    float: left;
+    width: 50%;
+    /* adjust the width; make sure the total of both is 100% */
+    padding: 0;
+    margin: 0;
+}
+
+.detail_info_title {
+    margin-top: 20px;
+    margin-left: 20px;
+    padding:5px;
+    height:40px;
+    border-left :7px 	#FFCC33 solid;
+}
+.etail_info_title_th {
+    background-color:#eeece4;
+    width: 20%;
+}
+
+.menu_info_title_th_ {    
+    &index {
+        background-color:#FFEE99;
+        width: 10%;
+    }
+    &item {
+        background-color:#FFEE99;
+        width: 80%;
+    }
+    &price {
+        background-color:#FFEE99;
+        width: 10%;
+    }
+    &feat {
+        font-weight:normal;
+    }
+}
+
+
+.media-left {
+    margin: 10px;
 }

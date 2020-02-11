@@ -3,20 +3,20 @@
     <div class="title menu_center_border">店家菜單列表頁面</div>
     <% if @menu_exist %>
             </br>
-            <table class="table">
+            <table class="table is-fullwidth is-bordered">
                 <thead>
                     <tr>
-                        <th>項次</th>
-                        <th>品項</th>
-                        <th>價格</th>
+                        <th class="menu_info_title_th_index" >項次</th>
+                        <th class="menu_info_title_th_item" >品項</th>
+                        <th class="menu_info_title_th_price" >價格</th>
                     </tr>
                 </thead>
                 <% @menus.each_with_index do |menu, index|%>    
                 <tbody>
                     <tr>
-                        <th><%= index + 1 %></th>
-                        <th><%= menu.item_name %></th>
-                        <th><%= menu.item_price %></th>
+                        <th class="menu_info_title_th_feat" ><%= index + 1 %></th>
+                        <th class="menu_info_title_th_feat" ><%= menu.item_name %></th>
+                        <th class="menu_info_title_th_feat" ><%= menu.item_price %></th>
                     </tr>
                 </tbody>
                 <% end %>

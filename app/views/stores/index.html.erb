@@ -1,5 +1,9 @@
 <h2 class="title" >店家資料主頁</h2>
 
+</br>
+<div class="ribbon-table-line"></div>
+</br>
+
 <div class="card">
   <div class="card-image">
       <%= image_tag("ramen_bar.png") %>  
@@ -9,65 +13,63 @@
 
   <div class="card-content">
 
-    <div class="media">
-      <div class="media-left">
-        <figure class="image">
-          <%= avatar(current_user,size:90) %>
-        </figure>
-      </div>
-      <div class="media-content">
-        <p class="title is-4">
-        <%= @store.title %>
-        </p>
-        <p class="subtitle is-6">
-        <%= @store.avg_score %>
-        </p>
-        <p class="subtitle is-6">
-        <%= @store.city %><%= @store.district %><%= @store.address %>
-        </p>
-      </div>
+    <div class="store_card_title">
+    <p class="title is-4">
+      <%= @store.title %>
+    </p>
     </div>
 
-    <div class="content">
-    <%= @store.promote %>
-    </br>
-    特色:  <%= @store.feature %>
+    <hr>
+
+    <div class="media">
+
+      <figure class="image">
+        <%= avatar(@store.user,size:200) %>
+      </figure>
+
+      <div class="media-content">
+
+        <div class="content">
+          <dl>
+            <dt>特色:</dt>
+            <dd><%= @store.feature %></dd>
+          </dl>
+          <dl>  
+            <dt>電話:</dt>
+            <dd><%= @store.tel %></dd>
+          </dl>
+          <dl>
+            <dt>預算:</dt>
+            <dd>約 NT$<%= @store.budget %></dd>
+          </dl>
+
+        </div>
+
+        <div class="">
+        <div class="star-ratings-css">
+          <div class="star-ratings-css-top" style="width:<%= @store.avg_score*20.0 %>%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        </div>
+        平均評分&nbsp;<%= format("%.2f",@store.avg_score) %>，共有<%=@store.comments_count %>則評價
+        </div>
+      </div> 
     </div>
+
   </div>
+  
 </div>
 
 <div class="ribbon-table-line"></div>
 
 <div class="card">
   <header class="card-header">
-    <p class="card-header-title">
-    簡介:
-    </br>
-    <%= @store.intro %>
-    </p>
   </header>
-  <div class="card-content">
-    <div class="content">
-    <p class="title is-6">
-    其他資料:
-    </p>
-    </br>
-    營業時間:<%= @store.opening_hours %>
-    </br>
-    公休日:<%= @store.closed_day %>
-    </br>
-    預算:<%= @store.budget %> 
-    </br>
-    備註:<%= @store.memo %> 
-    </br> 
-    </div>
-  </div>
 
   <div data-controller = "substore-content-loader"
-       data-substore-content-loader-map-url      ="/stores/<%= @store.id %>/store_sub_pages/show_gmap?full_address=<%= @store.city %><%= @store.district %><%= @store.address %>"
-       data-substore-content-loader-comments-url ="/stores/<%= @store.id %>/store_sub_pages/show_comments"
-       data-substore-content-loader-menu-url     ="/stores/<%= @store.id %>/store_sub_pages/show_menu"
-       data-substore-content-loader-album-url    ="/stores/<%= @store.id %>/store_sub_pages/show_album" >
+      data-substore-content-loader-map-url      ="/stores/<%= @store.id %>/store_sub_pages/show_gmap?full_address=<%= @store.city %><%= @store.district %><%= @store.address %>"
+      data-substore-content-loader-comments-url ="/stores/<%= @store.id %>/store_sub_pages/show_comments"
+      data-substore-content-loader-menu-url     ="/stores/<%= @store.id %>/store_sub_pages/show_menu"
+   data-substore-content-loader-album-url       ="/stores/<%= @store.id %>/store_sub_pages/show_album" >
 
     <footer class="card-footer">
       <a data-action="click->substore-content-loader#showComments" id="comments_trigger" class="card-footer-item">評價</a>
@@ -78,12 +80,100 @@
     <div class="ribbon-bar">
     </div>
 
-    <div id="output" class="sub_page_output">
+    <div id="output" class="sub_page_output" >
     </div>  
 
   </div>
 
 </div>
+
+
+  <section>
+      <div class="detail_info_title table-container">
+        <p class="title is-4">
+        詳細資料:
+        </p>
+      </div>
+
+      <table class="table is-fullwidth is-bordered">
+        <tbody>
+          <tr>
+            <th class="etail_info_title_th">
+            店名:
+            </th>
+            <td>
+            <%= @store.title %>
+            </td>
+          </tr>
+
+          <tr>
+            <th class="etail_info_title_th">
+            特色:
+            </th>
+            <td>
+            <%= @store.feature %>
+            </td>
+          </tr>
+
+          <tr>
+            <th class="etail_info_title_th">
+            電話:
+            </th>
+            <td>
+            <%= @store.tel %>
+            </td>
+          </tr>
+
+          <tr>
+            <th class="etail_info_title_th">
+            地址:
+            </th>
+            <td>
+            <%= @store.city %><%= @store.district %><%= @store.address %>
+            </td>
+          </tr>
+
+          <tr>
+            <th class="etail_info_title_th">
+            營業時間:
+            </th>
+            <td>
+            <%= @store.opening_hours %>
+            </td>
+          </tr>
+
+          <tr>
+            <th class="etail_info_title_th">
+            公休日:
+            </th>
+            <td>
+            <%= @store.closed_day %>
+            </td>
+          </tr>
+
+          <tr>
+            <th class="etail_info_title_th">
+            預算:
+            </th>
+            <td>
+            約 NT$<%= @store.budget %>
+            </td>
+          </tr>
+
+          <tr>
+            <th class="etail_info_title_th">
+            簡介:
+            </th>
+            <td>
+            <%= @store.promote %>
+            </br>
+            <%= @store.intro %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </section>
+
 
 <div id="mapLat" class="is-hidden" ><%= @latitude  %></div>
 <div id="mapLng" class="is-hidden" ><%= @longitude %></div>
@@ -99,7 +189,7 @@ $(function(){
     image_frame     = $(this).parent(".image_hihe_frame");
     store_id        = $("#store_id").val();
     request_url     = "/stores/"+store_id+"/store_pictures/"+image_id;
-    
+
     if(image_id == first_image_id){
       pre_image_id  = last_image_id;
       next_image_id = $(this).parents(".column").next(".column").find(".image_hide").attr("image_id");    
@@ -114,7 +204,7 @@ $(function(){
     $("#pre_link_button").attr("pre_link_img_id", pre_image_id);
     $("#next_link_button").attr("next_link_img_id", next_image_id);
     drawFrameBorder(image_frame);
-
+  
     $.ajax({
          type: "GET",
           url: request_url,
@@ -124,6 +214,7 @@ $(function(){
       }  
     })
   });
+
 
   $(".sub_page_output").on("click", "#pre_link_button", function() {
     target_id  = $(this).attr("pre_link_img_id");
@@ -138,7 +229,6 @@ $(function(){
     $(select_str).mouseover();
   })
 
-
   function drawFrameBorder(image_frame) {
     $(".image_hihe_frame").attr("class", "image_hihe_frame fade_img_unchose");
     image_frame.attr("class", "image_hihe_frame frame_chose fade_img_chose");
@@ -146,9 +236,3 @@ $(function(){
 
 });
 </script>
-
-
-
-
-
-

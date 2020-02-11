@@ -3,30 +3,40 @@
 <% if @comments_exist %>
 <% @comments.each do |comment|%>
     <div class="card">
-        <div class="card-content">
-            <div class="comment-head">
-            <div class="media">            
-            <div class="media-left">
-                <%= avatar(comment.user, size:60)%>
-            </div>
-            <div class="media-content">
-                <p class="title is-4"><%=comment.user.username %>&nbsp;comment on&nbsp;<%=comment.store.title%></p>
-                <p class="subtitle" >訪問日期:&nbsp;<%=comment.visit_time %>&nbsp;</p>
-                <p class="subtitle">評價分數:&nbsp;<%=comment.score %>&nbsp;訪問次數:&nbsp;<%=comment.visit_count %>&nbsp;消費金額:&nbsp;<%=comment.spend %></p>
-            </div>
-            </div>
-            </br>
-            </div>
+            <div class="card-content">
+                <div class="comment-head">                
+                <div class="media">
+                    <div class="media-left">
+                        <% if comment.user.avatar.attached? %>
+                            <%= avatar(comment.user, size:60)%>
+                        <% else %>
+                            <%= image_tag("no_picture.png", size:"60x60", class: "user-avatar") %>
+                        <% end %>    
+                    </div>
 
-            評論內容:
-            </br>
-            <div class="content">
-            <%=comment.content %>
-            <br>
-            <time><%=comment.user.updated_at%></time>
+                    <div class="media-content">
+                        <p class="is-4"><%=comment.user.username %>&nbsp;comment on&nbsp;<%=comment.store.title%></p>
+                            <div class="star-ratings-css">
+                            <div class="star-ratings-css-top" style="width:<%= comment.score*20.0 %>%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                            <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                            </div>
+                        <p>消費金額:&nbsp;<%=comment.spend %></p>
+                        <p>於&nbsp;<%=comment.visit_time %>訪問，已訪問<%=comment.visit_count %>次</p>
+                        <hr>
+                        <div class="comment-content">
+                        評論內容:
+                        </br>
+                        <%=comment.content %>
+                        </br>
+                        <div class="comment_time">
+                        <time class=""><%=comment.user.updated_at%></time>
+                        </div>
+                        </div>
+                    </div>    
+                </div>
+                </div>
             </div>
         </div>
-    </div>
     <div class="ribbon-table-line"></div>
 <% end %>
 <% else %>

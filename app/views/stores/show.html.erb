@@ -21,22 +21,48 @@
 
   <div class="card-content">
 
+    <div class="store_card_title">
+    <p class="title is-4">
+      <%= @store.title %>
+    </p>
+    </div>
+
+    <hr>
+
     <div class="media">
-      <div class="media-left">
-        <figure class="image">
-          <%= avatar(@store.user,size:90) %>
-        </figure>
-      </div>
+
+      <figure class="image">
+        <%= avatar(@store.user,size:200) %>
+      </figure>
+
       <div class="media-content">
-        <p class="title is-4">
-        <%= @store.title %>
-        </p>
-        <p class="subtitle is-6">
-        <%= @store.avg_score %>
-        </p>
-        <p class="subtitle is-6">
-        <%= @store.city %><%= @store.district %><%= @store.address %>       
-        </p>
+
+        <div class="content">
+          <dl>
+            <dt>特色:</dt>
+            <dd><%= @store.feature %></dd>
+          </dl>
+          <dl>  
+            <dt>電話:</dt>
+            <dd><%= @store.tel %></dd>
+          </dl>
+          <dl>
+            <dt>預算:</dt>
+            <dd>約 NT$<%= @store.budget %></dd>
+          </dl>
+
+        </div>
+
+        <div class="">
+        <div class="star-ratings-css">
+          <div class="star-ratings-css-top" style="width:<%= @store.avg_score*20.0 %>%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        </div>
+        平均評分&nbsp;<%= format("%.2f",@store.avg_score) %>，共有<%=@store.comments_count %>則評價
+        </div>
+
+        
+
       </div>
 
       <% if  current_user.present? && current_user.id!= @store.user.id%>
@@ -44,40 +70,15 @@
       <% end %>  
     </div>
 
-    <div class="content">
-    <%= @store.promote %>
-    </br>
-    特色:  <%= @store.feature %>
-    </div>
   </div>
+  
 </div>
 
 <div class="ribbon-table-line"></div>
 
 <div class="card">
   <header class="card-header">
-    <p class="card-header-title">
-    簡介:
-    </br>
-    <%= @store.intro %>
-    </p>
   </header>
-  <div class="card-content">
-    <div class="content">
-    <p class="title is-6">
-    其他資料:
-    </p>
-    </br>
-    營業時間:<%= @store.opening_hours %>
-    </br>
-    公休日:<%= @store.closed_day %>
-    </br>
-    預算:<%= @store.budget %> 
-    </br>
-    備註:<%= @store.memo %> 
-    </br> 
-    </div>
-  </div>
 
   <div data-controller = "substore-content-loader"
       data-substore-content-loader-map-url      ="/stores/<%= @store.id %>/store_sub_pages/show_gmap?full_address=<%= @store.city %><%= @store.district %><%= @store.address %>"
@@ -100,6 +101,94 @@
   </div>
 
 </div>
+
+
+  <section>
+      <div class="detail_info_title table-container">
+        <p class="title is-4">
+        詳細資料:
+        </p>
+      </div>
+
+      <table class="table is-fullwidth is-bordered">
+        <tbody>
+          <tr>
+            <th class="etail_info_title_th">
+            店名:
+            </th>
+            <td>
+            <%= @store.title %>
+            </td>
+          </tr>
+
+          <tr>
+            <th class="etail_info_title_th">
+            特色:
+            </th>
+            <td>
+            <%= @store.feature %>
+            </td>
+          </tr>
+
+          <tr>
+            <th class="etail_info_title_th">
+            電話:
+            </th>
+            <td>
+            <%= @store.tel %>
+            </td>
+          </tr>
+
+          <tr>
+            <th class="etail_info_title_th">
+            地址:
+            </th>
+            <td>
+            <%= @store.city %><%= @store.district %><%= @store.address %>
+            </td>
+          </tr>
+
+          <tr>
+            <th class="etail_info_title_th">
+            營業時間:
+            </th>
+            <td>
+            <%= @store.opening_hours %>
+            </td>
+          </tr>
+
+          <tr>
+            <th class="etail_info_title_th">
+            公休日:
+            </th>
+            <td>
+            <%= @store.closed_day %>
+            </td>
+          </tr>
+
+          <tr>
+            <th class="etail_info_title_th">
+            預算:
+            </th>
+            <td>
+            約 NT$<%= @store.budget %>
+            </td>
+          </tr>
+
+          <tr>
+            <th class="etail_info_title_th">
+            簡介:
+            </th>
+            <td>
+            <%= @store.promote %>
+            </br>
+            <%= @store.intro %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </section>
+
 
 <div id="mapLat" class="is-hidden" ><%= @latitude  %></div>
 <div id="mapLng" class="is-hidden" ><%= @longitude %></div>
