@@ -2,9 +2,6 @@
 
 </br> 
 
-<%= form_for( @store, url: "/stores/#{current_user.store.id}/menus", method: "put") do |f| %>
-    <%= text_field_tag :menus_status, @menus_status, class:"input is-hidden" %>
-
     <div class="field columns is-vcentered"> 
         <div class="control column">
             <span class="tag is-large is-warning">
@@ -24,33 +21,42 @@
 
     
     <div id= "menus" >
+        <%= form_for( @store, url: "/stores/#{current_user.store.id}/menus", method: "put") do |f| %>
+        <%= text_field_tag :menus_status, @menus_status, class:"input is-hidden" %>
+
         <div id= "menus_edit_list" data-behavior='sortable' >
-            <%= f.fields_for :menus do |menu| %>
-                <%= render 'menu_fields', f: menu %>
+            <%= f.fields_for(:menus, include_id:false) do |menu| %>
+                    <%= render 'menu_fields', f: menu %>
             <% end %>
         </div>
+        <hr>
         <div class='links'>
             <p>
             </br>
-            <%= link_to_add_association "新增一組條目 「料理-價格」", f, :menus, data:{"association-insertion-node" => ".nested-fields:last", "association-insertion-method" => "after"}, class:"button is-danger" %> 
+            <%= link_to_add_association "新增一組條目 「料理-價格」", f, :menus, data:{"association-insertion-node" => "#menus_edit_list", "association-insertion-method" => "append"}, class:"button is-danger" %> 
             </p>
         </div>
+        </br>
+        <%= link_to "取消", :back , class:"button is-light" %>
+        <%= f.submit "提交資料", class:"button is-warning" %>
+        <% end %>
     </div>
 
 
 
-    </br>
-    <%= link_to "取消", :back , class:"button is-light" %>
-    <%= f.submit "提交資料", class:"button is-warning" %>
- 
-<% end %>
+
 
 
 <script>
 
 $(function(){
 
-    $("[data-behavior='sortable']" ).sortable();
+    $("[data-behavior='sortable']" ).sortable({
+        axis: 'y',
+        items: '.nested-fields'
+    });
+
+    $("[data-behavior='sortable']" ).disableSelection();
 
 });
 

@@ -4,7 +4,7 @@ class StoresController < ApplicationController
     def new
         @store  = current_user.build_store
         @url    = user_stores_path(user_id:current_user.id)
-        @method = :GET
+        @method = :POST
     end
     
     def create
