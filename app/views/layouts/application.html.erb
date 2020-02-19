@@ -10,7 +10,7 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'cocoon', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'direct_upload', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'https://maps.googleapis.com/maps/api/js?key='+'AIzaSyCIi-IrSspIdK6NWcA4bmtpSudUF7Fcyvk' %>
+    <%= javascript_include_tag 'https://maps.googleapis.com/maps/api/js?key='+ENV["GOOGLE_API_KEY"] %>
     <%= yield(:head_tags) %>
 
   </head>
